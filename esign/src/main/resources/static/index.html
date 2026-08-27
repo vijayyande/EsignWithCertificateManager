@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP — Endpoints Overview</title>
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+<header>
+    <h1>eSign API <span>v3.3</span> Test Console</h1>
+    <nav>
+        <a href="/" class="active">Endpoints</a>
+        <a href="/esign.html">ASP: eSign XML</a>
+        <a href="/sign.html">ASP: PDF Sign</a>
+        <a href="/auth.html">ESP: Auth</a>
+        <a href="/ekyc.html">ESP: eKYC</a>
+        <a href="/asp.html">ESP: ASP Registry</a>
+        <a href="/logs.html">ESP: Audit Logs</a>
+        <a href="/swagger-ui.html" target="_blank" rel="noopener">Swagger UI &#8599;</a>
+    </nav>
+</header>
+
+<main>
+    <div class="card">
+        <div class="card-head">REST Endpoints</div>
+        <div class="card-body">
+            <table class="dir">
+                <tr><th style="width:80px">Method</th><th>Path</th><th>Description</th></tr>
+                <tr><td><span class="method m-post">POST</span></td><td><code>/esign/request</code></td><td>Submit an eSign request XML (documents + hashes) for signing</td></tr>
+                <tr><td><span class="method m-post">POST</span></td><td><code>/esign/status</code></td><td>Query the status of a previous eSign transaction</td></tr>
+                <tr><td><span class="method m-get">GET</span></td><td><code>/esign/transaction/{id}</code></td><td>Fetch a stored transaction response by id</td></tr>
+                <tr><td><span class="method m-post">POST</span></td><td><code>/esign/auth/callback?txnref=…</code></td><td>Authentication completion callback (base64 of txn|responseCode)</td></tr>
+                <tr><td><span class="method m-post">POST</span></td><td><code>/ekyc/auth</code></td><td>eKYC authentication with PIN hash and optional composite second factor</td></tr>
+                <tr><td><span class="method m-post">POST</span></td><td><code>/ekyc/auth/second-factor</code></td><td>Second factor verification (SMSOTP / TOTP / MAT / FIDO / PUBSIGN)</td></tr>
+                <tr><td><span class="method m-post">POST</span></td><td><code>/ekyc/bank-kyc</code></td><td>Bank KYC submission</td></tr>
+                <tr><td><span class="method m-post">POST</span></td><td><code>/ekyc/public-key/register</code></td><td>Public key registration</td></tr>
+                <tr><td><span class="method m-get">GET</span></td><td><code>/esign/dev/users</code>, <code>/pin-hash</code>, <code>/send-otp</code></td><td>Dev-only helpers backing this console (seed users, compute PIN hash, retrieve OTP)</td></tr>
+                <tr><td><span class="method m-get">GET</span></td><td><code>/esign/dev/transactions/{id}</code></td><td>Transaction details for auth page (document hashes, status, metadata)</td></tr>
+                <tr><td><span class="method m-post">POST</span></td><td><code>/esign/dev/auth-and-sign</code></td><td>Authenticates user (PIN+OTP), signs document hashes, returns CMS signature + certificate</td></tr>
+                <tr><td><span class="method m-get">GET</span> <span class="method m-post">POST</span></td><td><code>/api/asps</code> (+ PUT/DELETE, stats)</td><td>ASP registry management API &mdash; UI at <a href="/asp.html">ASP Management</a>. Defaults seeded at startup.</td></tr>
+                <tr><td><span class="method m-get">GET</span></td><td><code>/api/esign-logs</code></td><td>Audit trail of every eSign request (sign / status / callback) with filters &mdash; UI at <a href="/logs.html">Audit Logs</a></td></tr>
+                <tr><td><span class="method m-post">POST</span></td><td><code>/api/certificates/request</code></td><td>Forwards certificate-enrollment JSON to the CA endpoint configured in <code>application.yml</code> (<code>ca.*</code>). eSign metadata fields (<code>signerId</code>, <code>aspId</code>, <code>transactionId</code>, <code>docHash</code>, <code>docInfo</code>, <code>signingAlgorithm</code>) are captured in the audit trail but never forwarded to the CA. <code>GET /api/certificates/settings</code> shows the active config.</td></tr>
+                <tr><td><span class="method m-get">GET</span></td><td><code>/swagger-ui.html</code></td><td>Interactive OpenAPI documentation for every REST endpoint &mdash; <a href="/swagger-ui.html" target="_blank" rel="noopener">open Swagger UI</a> (raw spec: <a href="/v3/api-docs">/v3/api-docs</a>)</td></tr>
+            </table>
+            <p class="hint" style="margin-top:14px">
+                <strong>ASP</strong> (Application Service Provider): <a href="/esign.html">submit eSign XML with document hash</a> → <a href="/sign.html">upload PDF, compute hash, embed CMS signature</a>.<br>
+                <strong>ESP</strong> (eSign Service Provider): redirect user to <a href="/auth.html">/auth.html?txn=TXN-ID</a> for PIN+OTP authentication → ESP calls CM for signing → CMS signature returned → ASP embeds into PDF.
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-head"><span class="method m-get">GET</span> Health</div>
+        <div class="card-body">
+            <div class="row-actions">
+                <button id="healthBtn">Check /actuator/health</button>
+            </div>
+            <div class="result-block" id="healthResult"></div>
+        </div>
+    </div>
+</main>
+
+<script src="/js/app.js"></script>
+<script>
+    $("#healthBtn").addEventListener("click", async () => {
+        renderTextResult("healthResult", await getJson("/actuator/health"), true);
+    });
+</script>
+</body>
+</html>

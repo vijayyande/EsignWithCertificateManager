@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: esign-postgres
+    environment:
+      POSTGRES_DB: esign
+      POSTGRES_USER: esign
+      POSTGRES_PASSWORD: esign
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U esign -d esign"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: esign-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  esign-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: esign-api
+    environment:
+      SPRING_PROFILE: dev
+      DATABASE_URL: jdbc:postgresql://postgres:5432/esign
+      DATABASE_USER: esign
+      DATABASE_PASSWORD: esign
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
+      KEYSTORE_PASSWORD: changeit
+      HSM_PROVIDER: SunPKCS11
+      HSM_PIN: 1234
+      JWT_SECRET: dev-secret-key-at-least-32-characters-long-for-testing
+      ESP_ID: ESP001
+      ASP_ID: ASP001
+      FIDO2_RP_ID: localhost
+      FIDO2_ORIGIN: http://localhost:8080
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./keystore:/app/keystore:ro
+      - ./certificates:/app/certificates:ro
+      - esign_logs:/app/logs
+
+volumes:
+  postgres_data:
+  redis_data:
+  esign_logs:

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP — User Authentication</title>
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+<header>
+    <h1>eSign <span>Authentication</span></h1>
+    <nav>
+        <a href="/">Endpoints</a>
+        <a href="/esign.html">ASP: eSign XML</a>
+        <a href="/sign.html">ASP: PDF Sign</a>
+        <a href="/auth.html" class="active">ESP: Auth</a>
+        <a href="/ekyc.html">ESP: eKYC</a>
+        <a href="/asp.html">ESP: ASP Registry</a>
+        <a href="/logs.html">ESP: Audit Logs</a>
+        <a href="/swagger-ui.html" target="_blank" rel="noopener">Swagger UI &#8599;</a>
+    </nav>
+</header>
+
+<main>
+    <!-- Loading state -->
+    <div id="loadingCard" class="card">
+        <div class="card-head">Loading Transaction…</div>
+        <div class="card-body">
+            <p class="hint" id="loadingMsg">Fetching transaction details…</p>
+        </div>
+    </div>
+
+    <!-- Error state -->
+    <div id="errorCard" class="card" style="display:none">
+        <div class="card-head" style="color:var(--red)">Error</div>
+        <div class="card-body">
+            <p id="errorMsg"></p>
+            <button onclick="location.href='/'" style="margin-top:12px">Back to Console</button>
+        </div>
+    </div>
+
+    <!-- Auth form -->
+    <div id="authCard" class="card" style="display:none">
+        <div class="card-head">Sign Document</div>
+        <div class="card-body">
+            <p style="font-size:.92rem; color:#556; margin:0 0 16px">
+                You are being asked to digitally sign a document. Review the details below,
+                authenticate with your PIN and OTP, then click <strong>Sign</strong>.
+            </p>
+
+            <!-- Transaction details -->
+            <div class="grid" style="grid-template-columns:1fr 1fr 1fr; margin-bottom:16px">
+                <div class="field"><label>Transaction ID</label>
+                    <input id="txnId" readonly /></div>
+                <div class="field"><label>Requesting ASP</label>
+                    <input id="aspId" readonly /></div>
+                <div class="field"><label>Signing Algorithm</label>
+                    <input id="signingAlgo" readonly /></div>
+            </div>
+
+            <!-- Documents to sign -->
+            <div class="section-label">Documents to Sign</div>
+            <div id="docList"></div>
+
+            <!-- Credentials -->
+            <div class="section-label" style="margin-top:18px">Authentication</div>
+            <div class="grid" style="grid-template-columns:1fr 1fr; margin-bottom:14px">
+                <div class="field"><label>Username</label>
+                    <input id="username" value="demosigner" /></div>
+                <div class="field"><label>PIN (default: 123456)</label>
+                    <input id="pin" type="password" value="123456" /></div>
+            </div>
+
+            <div class="grid" style="grid-template-columns:1fr auto; gap:10px; align-items:end; margin-bottom:18px">
+                <div class="field"><label>OTP</label>
+                    <input id="otp" placeholder="Enter 6-digit OTP" maxlength="6" /></div>
+                <button id="sendOtpBtn" class="secondary" style="height:38px">Request OTP</button>
+            </div>
+
+            <div id="otpHint" class="hint" style="margin:-10px 0 14px; display:none">
+                Dev mode: OTP is <strong id="otpValue"></strong> — enter it above.
+            </div>
+
+            <!-- Sign button -->
+            <button id="signBtn">Sign Document</button>
+
+            <!-- Progress -->
+            <div id="progress" style="margin-top:14px"></div>
+        </div>
+    </div>
+
+    <!-- Success state -->
+    <div id="successCard" class="card" style="display:none">
+        <div class="card-head" style="color:var(--green)">Signing Complete</div>
+        <div class="card-body">
+            <div id="successDetails"></div>
+            <div style="margin-top:16px">
+                <button id="downloadCertBtn" class="secondary">Download Certificate</button>
+                <button id="downloadSignedBtn" style="margin-left:8px">Download Signed Data</button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="/js/app.js"></script>
+<script src="/js/auth.js?v=1"></script>
+</body>
+</html>

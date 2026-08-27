@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP — Audit Logs</title>
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+<header>
+    <h1>eSign API <span>v3.3</span> Test Console</h1>
+    <nav>
+        <a href="/">Endpoints</a>
+        <a href="/esign.html">ASP: eSign XML</a>
+        <a href="/sign.html">ASP: PDF Sign</a>
+        <a href="/auth.html">ESP: Auth</a>
+        <a href="/ekyc.html">ESP: eKYC</a>
+        <a href="/asp.html">ESP: ASP Registry</a>
+        <a href="/logs.html" class="active">ESP: Audit Logs</a>
+        <a href="/swagger-ui.html" target="_blank" rel="noopener">Swagger UI &#8599;</a>
+    </nav>
+</header>
+
+<main>
+    <!-- Filters + log table -->
+    <details class="card" open>
+        <summary><span class="method m-get">GET</span> /api/esign-logs
+            <span class="endpoint-path">— every eSign request, including rejected ones</span></summary>
+        <div class="card-body">
+            <div class="grid" style="grid-template-columns: 1.2fr .8fr .8fr 1fr 1fr auto; align-items: end;">
+                <div class="field"><label>Search (txn / asp / signer)</label>
+                    <input id="q" placeholder="TXN-DEMO-001"></div>
+                <div class="field"><label>Endpoint</label>
+                    <select id="f-type"><option value="">All</option><option>SIGN</option><option>STATUS</option><option>AUTH_CALLBACK</option><option>CERT_REQUEST</option></select></div>
+                <div class="field"><label>Outcome</label>
+                    <select id="f-outcome"><option value="">All</option><option>SUCCESS</option><option>PENDING</option><option>REJECTED</option><option>ERROR</option></select></div>
+                <div class="field"><label>From</label><input id="f-from" type="datetime-local"></div>
+                <div class="field"><label>To</label><input id="f-to" type="datetime-local"></div>
+                <button id="searchBtn">Search</button>
+            </div>
+
+            <div style="overflow-x:auto; margin-top:14px;">
+                <table class="dir">
+                    <thead>
+                        <tr><th>Time (IST)</th><th>Endpoint</th><th>Transaction</th><th>ASP / Signer</th>
+                            <th>Outcome</th><th>HTTP</th><th>Error</th><th>Docs</th></tr>
+                    </thead>
+                    <tbody id="logTableBody"></tbody>
+                </table>
+            </div>
+
+            <div class="row-actions" style="justify-content: space-between;">
+                <span class="hint" id="pageInfo"></span>
+                <span>
+                    <button class="secondary" id="prevBtn">&larr; Prev</button>
+                    <button class="secondary" id="nextBtn">Next &rarr;</button>
+                    <button class="secondary" id="refreshBtn">Refresh</button>
+                </span>
+            </div>
+        </div>
+    </details>
+
+    <!-- Detail drawer -->
+    <details class="card" id="detailBlock" open>
+        <summary><span class="method m-get">GET</span> /api/esign-logs/{id}
+            <span class="endpoint-path" id="detailTitle">Click any log row to inspect</span></summary>
+        <div class="card-body" id="detailBody" style="font-size:13px"></div>
+    </details>
+</main>
+
+<script src="/js/app.js"></script>
+<script src="/js/logs.js"></script>
+</body>
+</html>

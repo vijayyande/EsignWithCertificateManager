@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP — ASP Registry Management</title>
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+<header>
+    <h1>eSign API <span>v3.3</span> Test Console</h1>
+    <nav>
+        <a href="/">Endpoints</a>
+        <a href="/esign.html">ASP: eSign XML</a>
+        <a href="/sign.html">ASP: PDF Sign</a>
+        <a href="/auth.html">ESP: Auth</a>
+        <a href="/ekyc.html">ESP: eKYC</a>
+        <a href="/asp.html" class="active">ESP: ASP Registry</a>
+        <a href="/logs.html">ESP: Audit Logs</a>
+        <a href="/swagger-ui.html" target="_blank" rel="noopener">Swagger UI &#8599;</a>
+    </nav>
+</header>
+
+<main>
+    <!-- Registry table -->
+    <details class="card" open>
+        <summary><span class="method m-get">GET</span> /api/asps
+            <span class="endpoint-path">— registered Authentication Service Providers</span></summary>
+        <div class="card-body">
+            <div class="grid" style="grid-template-columns: 1fr auto auto; align-items: end;">
+                <div class="field"><label>Search (aspId or organisation)</label>
+                    <input id="asp-search" placeholder="Type and press Enter…"></div>
+                <button class="secondary" id="searchBtn">Search</button>
+                <button class="secondary" id="refreshBtn">Refresh</button>
+            </div>
+
+            <div style="overflow-x:auto; margin-top:14px;">
+                <table class="dir">
+                    <thead>
+                        <tr><th>aspId</th><th>Organisation / Contact</th><th>Status</th>
+                            <th>Transactions</th><th>Registered</th><th>Actions</th></tr>
+                    </thead>
+                    <tbody id="aspTableBody"></tbody>
+                </table>
+            </div>
+
+            <div class="row-actions">
+                <button id="newAspBtn">+ Register new ASP</button>
+            </div>
+        </div>
+    </details>
+
+    <!-- Create / edit form -->
+    <details class="card" id="aspFormCard" open>
+        <summary><span class="method m-post">POST</span> <span class="method m-post">PUT</span> /api/asps
+            <span class="endpoint-path" id="formTitle">Register new ASP</span></summary>
+        <div class="card-body">
+            <div class="grid">
+                <div class="field"><label>aspId * (immutable after creation)</label>
+                    <input id="f-aspId" placeholder="ASP001"></div>
+                <div class="field"><label>organisationName *</label>
+                    <input id="f-organisationName" placeholder="Acme Corp Ltd."></div>
+                <div class="field"><label>status</label>
+                    <select id="f-status">
+                        <option>ACTIVE</option>
+                        <option>INACTIVE</option>
+                        <option>SUSPENDED</option>
+                    </select></div>
+                <div class="field"><label>contactEmail</label>
+                    <input id="f-contactEmail" placeholder="admin@acme.example"></div>
+                <div class="field"><label>contactPhone</label>
+                    <input id="f-contactPhone" placeholder="+91…"></div>
+                <div class="field wide"><label>allowedResponseUrlPrefix</label>
+                    <input id="f-allowedResponseUrlPrefix" placeholder="https://asp.acme.example/esign/callback"></div>
+                <div class="field wide"><label>X.509 certificate (PEM) — used to verify ASP request signatures</label>
+                    <textarea id="f-certificatePem" placeholder="-----BEGIN CERTIFICATE-----&#10;…&#10;-----END CERTIFICATE-----"></textarea></div>
+                <div class="field wide"><label>notes</label>
+                    <textarea id="f-notes"></textarea></div>
+            </div>
+            <div class="row-actions">
+                <button id="saveAspBtn">Save ASP</button>
+                <span class="hint">Saving in create mode registers a new ASP; in edit mode it updates the loaded one.</span>
+            </div>
+            <div class="result-block" id="formResult"></div>
+        </div>
+    </details>
+
+    <!-- Transactions panel -->
+    <details class="card result-block" id="txnPanelBlock">
+        <summary><span class="method m-get">GET</span> /api/asps/{aspId}/transactions
+            <span class="endpoint-path" id="txnPanelTitle">Recent transactions</span></summary>
+        <div class="card-body" id="txnTableWrap"></div>
+    </details>
+</main>
+
+<script src="/js/app.js"></script>
+<script src="/js/asp.js"></script>
+</body>
+</html>

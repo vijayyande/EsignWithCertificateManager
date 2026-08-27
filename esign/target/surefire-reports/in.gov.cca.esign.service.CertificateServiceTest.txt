@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: in.gov.cca.esign.service.CertificateServiceTest
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.969 s -- in in.gov.cca.esign.service.CertificateServiceTest

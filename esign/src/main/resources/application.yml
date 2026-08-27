@@ -1,0 +1,352 @@
+server:
+  port: 8080
+  # Flush in-flight work + close datasource cleanly on stop (SIGTERM/Ctrl+C)
+  shutdown: graceful
+
+spring:
+  application:
+    name: esign-api
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
+  profiles:
+    active: ${SPRING_PROFILE:dev}
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/esign}
+    username: ${DATABASE_USER:esign}
+    password: ${DATABASE_PASSWORD:esign}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      idle-timeout: 300000
+      connection-timeout: 20000
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=1000,expireAfterWrite=30m
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+# eSign Configuration
+esign:
+  version: "3.3"
+  esp-id: ${ESP_ID:ESP001}
+  asp-id: ${ASP_ID:ASP001}
+  max-documents: 5
+  timestamp-tolerance-minutes: 30
+  # Verify ASP XML-DSig signatures on inbound requests (disable in dev/test)
+  signature-verification:
+    enabled: ${ESIGN_SIGNATURE_VERIFICATION:true}
+  # Token store backend: memory | redis
+  token-store: ${ESIGN_TOKEN_STORE:redis}
+  # Reject requests from ASPs not registered/active in /api/asps registry (dev/test: off)
+  asp-registry:
+    validation-enabled: ${ESIGN_ASP_REGISTRY_VALIDATION:false}
+  # Insert demo/default rows into every table at startup (idempotent)
+  seed-default-data: ${ESIGN_SEED_DEFAULT_DATA:true}
+  keystore:
+    path: ${ESP_KEYSTORE_PATH:classpath:keystore/esp-keystore.p12}
+    password: ${KEYSTORE_PASSWORD:changeit}
+    type: PKCS12
+    alias: esign-esp
+  signing-algorithms:
+    - ECDSA
+    - RSA
+  response-signature-types:
+    - raw
+    - PKCS7
+    - PKCS7pdf
+    - PKCS7complete
+  hsm:
+    provider: ${HSM_PROVIDER:SunPKCS11}
+    slot: ${HSM_SLOT:0}
+    pin: ${HSM_PIN:1234}
+    library: ${HSM_LIBRARY:/usr/lib/softhsm/libsofthsm2.so}
+    key-algorithm: RSA
+    key-size: 2048
+  tsa:
+    enabled: ${TSA_ENABLED:true}
+    url: ${TSA_URL:http://timestamp.digicert.com,http://timestamp.sectigo.com,http://timestamp.entrust.net/TSS/RFC3161sha2TS}
+    connect-timeout-ms: ${TSA_CONNECT_TIMEOUT_MS:5000}
+    read-timeout-ms: ${TSA_READ_TIMEOUT_MS:10000}
+  callback:
+    timeout: 30000
+    retry-attempts: 3
+    retry-delay: 5000
+
+# eKYC Configuration
+ekyc:
+  pin:
+    min-length: 6
+    max-length: 12
+    hash-algorithm: PBKDF2WithHmacSHA256
+    hash-iterations: 100000
+  otp:
+    sms:
+      length: 6
+      validity-minutes: 15
+      max-retries: 3
+      rate-limit-minutes: 1
+    totp:
+      algorithm: HmacSHA256
+      digits: 6
+      period-seconds: 30
+      window: 1
+  mat:
+    validity-days: 90
+    max-devices: 1
+  fido2:
+    rp-id: ${FIDO2_RP_ID:esign.gov.in}
+    rp-name: "eSign Service Provider"
+    origin: ${FIDO2_ORIGIN:https://esign.gov.in}
+    credential-timeout: 60000
+    attestation: "none"
+    user-verification: "required"
+  public-key:
+    algorithms:
+      - RSA2048
+      - RSA4096
+      - ECC-P256
+      - ECC-P384
+      - ECC-P521
+    max-validity-years: 3
+  authentication:
+    max-failed-attempts: 5
+    lockout-duration-minutes: 30
+    signature-verification:
+      enabled: ${EKYC_SIGNATURE_VERIFICATION:${ESIGN_SIGNATURE_VERIFICATION:true}}
+  uidai:
+    certificate-url: ${UIDAI_CERT_URL:https://www.uidai.gov.in/certificates/}
+    max-xml-age-days: 7
+  pan:
+    verification-url: ${PAN_VERIFICATION_URL:https://api.incometax.gov.in/verify}
+  bank:
+    certificate-registry: ${BANK_CERT_REGISTRY:classpath:certificates/banks/}
+
+# Certificate Authority (CA) REST integration — used by /api/certificates/request
+# CA service: http://localhost:8443 (Swagger UI: /swagger-ui/index.html, tag "Certificates")
+ca:
+  # Master switch: when false, enrollment requests answer 503 without calling out
+  enabled: ${CA_ENABLED:false}
+  # Base URL of the CA REST service (path below is appended)
+  base-url: ${CA_BASE_URL:http://localhost:8443}
+  # Enrollment path appended to base-url (operationId requestCertificate)
+  enroll-path: ${CA_ENROLL_PATH:/api/certificates/request}
+  # Signing path appended to base-url (send hash to CM for signing)
+  sign-path: ${CA_SIGN_PATH:/api/certificates/sign}
+  # Authentication for the CA call: none | basic | api-key
+  auth-type: ${CA_AUTH_TYPE:basic}
+  # Basic-auth credentials (required when auth-type=basic)
+  username: ${CA_USERNAME:admin}
+  password: ${CA_PASSWORD:}
+  # Static API key (used when auth-type=api-key)
+  api-key-header: ${CA_API_KEY_HEADER:X-API-Key}
+  api-key: ${CA_API_KEY:}
+  connect-timeout-ms: ${CA_CONNECT_TIMEOUT_MS:5000}
+  read-timeout-ms: ${CA_READ_TIMEOUT_MS:15000}
+
+# Security
+security:
+  jwt:
+    secret: ${JWT_SECRET:changeThisSecretInProductionAtLeast32CharactersLong}
+    expiration: 3600000
+    refresh-expiration: 86400000
+  cors:
+    allowed-origins: ${CORS_ORIGINS:https://*.gov.in,https://*.nic.in}
+    allowed-methods: GET,POST,PUT,DELETE,OPTIONS
+    allowed-headers: "*"
+    max-age: 3600
+
+# Logging
+logging:
+  level:
+    in.gov.cca.esign: DEBUG
+    org.springframework.security: DEBUG
+    org.apache.santuario: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/esign-api.log
+    max-size: 100MB
+    max-history: 30
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+    # ShutdownEndpoint ships disabled by default (enableByDefault=false)
+    shutdown:
+      enabled: true
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
+# OpenAPI 3 + Swagger UI (/swagger-ui.html, linked from the console home page)
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+
+---
+# Development profile: persistent file-based H2 (survives restarts), no SSL,
+# signatures not verified. Override location with ESIGN_DATA_DIR.
+spring:
+  config:
+    activate:
+      on-profile: dev
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+  datasource:
+    url: jdbc:h2:file:${ESIGN_DATA_DIR:./data}/esign;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      # 'update' evolves the schema without wiping existing rows
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  flyway:
+    enabled: false
+
+esign:
+  token-store: memory
+  signature-verification:
+    enabled: false
+  keystore:
+    path:
+    password: changeit
+    type: PKCS12
+    alias: esign-esp
+
+ekyc:
+  authentication:
+    signature-verification:
+      enabled: false
+
+# Dev: CA integration enabled — CM must be running at localhost:8443
+ca:
+  enabled: true
+  base-url: ${CA_BASE_URL:http://localhost:8443}
+  auth-type: basic
+  username: ${CA_USERNAME:admin}
+  password: ${CA_PASSWORD:admin123}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus,shutdown
+
+logging:
+  level:
+    root: INFO
+    in.gov.cca.esign: DEBUG
+
+---
+# Test profile: mirrors dev with stricter logging
+spring:
+  config:
+    activate:
+      on-profile: test
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration
+  datasource:
+    url: jdbc:h2:mem:esign_test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  flyway:
+    enabled: false
+
+esign:
+  token-store: memory
+  signature-verification:
+    enabled: false
+  seed-default-data: false
+  keystore:
+    path:
+    password: changeit
+    type: PKCS12
+    alias: esign-esp
+
+ekyc:
+  authentication:
+    signature-verification:
+      enabled: false
+
+logging:
+  level:
+    root: WARN
+    in.gov.cca.esign: DEBUG
+
+---
+# Production profile: PostgreSQL, TLS on 8443, signatures verified
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+server:
+  port: 8443
+  ssl:
+    enabled: true
+    key-store: ${SSL_KEYSTORE:classpath:keystore/esign-keystore.p12}
+    key-store-password: ${KEYSTORE_PASSWORD:changeit}
+    key-store-type: PKCS12
+    key-alias: esign-server
+
+# Remote shutdown is a dev convenience; never expose it in production
+management:
+  endpoint:
+    shutdown:
+      enabled: false
+
+esign:
+  token-store: redis

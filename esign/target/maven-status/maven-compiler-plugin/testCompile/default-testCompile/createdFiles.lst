@@ -1,0 +1,8 @@
+in\gov\cca\esign\service\EsignServiceTest.class
+in\gov\cca\esign\controller\EKycControllerIntegrationTest.class
+in\gov\cca\esign\controller\EsignControllerIntegrationTest.class
+in\gov\cca\esign\service\EKycServiceTest.class
+in\gov\cca\esign\controller\DevTestControllerTest.class
+in\gov\cca\esign\service\OtpServiceTest.class
+in\gov\cca\esign\service\CertificateServiceTest.class
+in\gov\cca\esign\service\EsignAuditServiceTest.class

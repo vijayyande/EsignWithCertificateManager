@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASP — eSign XML Submission</title>
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+<header>
+    <h1>eSign API <span>v3.3</span> Test Console</h1>
+    <nav>
+        <a href="/">Endpoints</a>
+        <a href="/esign.html" class="active">ASP: eSign XML</a>
+        <a href="/sign.html">ASP: PDF Sign</a>
+        <a href="/auth.html">ESP: Auth</a>
+        <a href="/ekyc.html">ESP: eKYC</a>
+        <a href="/asp.html">ESP: ASP Registry</a>
+        <a href="/logs.html">ESP: Audit Logs</a>
+        <a href="/swagger-ui.html" target="_blank" rel="noopener">Swagger UI &#8599;</a>
+    </nav>
+</header>
+
+<main>
+    <!-- eSign Request -->
+    <div class="card">
+        <div class="card-head"><span class="method m-post">POST</span> /esign/request
+            <span class="endpoint-path">— submit documents for signing</span></div>
+        <div class="card-body">
+            <div class="grid">
+                <div class="field"><label>ver</label><input id="req-ver"></div>
+                <div class="field"><label>ts (IST)</label><input id="req-ts"></div>
+                <div class="field"><label>txn</label><input id="req-txn"></div>
+                <div class="field"><label>signerid (optional)</label><input id="req-signerid" placeholder="user@example.com"></div>
+                <div class="field"><label>maxWaitPeriod (ms)</label><input id="req-maxwait"></div>
+                <div class="field"><label>aspId</label><input id="req-aspid"></div>
+                <div class="field"><label>signingAlgorithm</label><input id="req-algo"></div>
+                <div class="field"><label>responseUrl</label><input id="req-responseurl"></div>
+                <div class="field"><label>redirectUrl</label><input id="req-redirecturl"></div>
+            </div>
+
+            <div class="section-label">Documents</div>
+            <div class="docs-list" id="docsList"></div>
+            <div class="row-actions">
+                <button class="secondary small" id="addDocBtn">+ Add document</button>
+                <button class="secondary small" id="fillSampleHashes">Fill sample SHA-256 hashes</button>
+                <button class="secondary small" id="regenTs">New ts + txn</button>
+            </div>
+
+            <div class="section-label">Request XML preview</div>
+            <pre class="xml" id="reqPreviewBlock">(generated on send)</pre>
+
+            <div class="row-actions">
+                <button id="sendEsign">Send POST /esign/request</button>
+            </div>
+            <div class="result-block" id="reqResult"></div>
+        </div>
+    </div>
+
+    <!-- Status -->
+    <div class="card">
+        <div class="card-head"><span class="method m-post">POST</span> /esign/status
+            <span class="endpoint-path">— query transaction status</span></div>
+        <div class="card-body">
+            <div class="grid">
+                <div class="field"><label>ver</label><input id="st-ver"></div>
+                <div class="field"><label>ts (IST)</label><input id="st-ts"></div>
+                <div class="field"><label>txn</label><input id="st-txn" placeholder="transaction id to check"></div>
+                <div class="field"><label>aspId</label><input id="st-aspid"></div>
+            </div>
+            <div class="row-actions">
+                <button class="secondary small" id="buildStatus">Build preview</button>
+                <button id="sendStatus">Send POST /esign/status</button>
+            </div>
+            <div class="section-label">Request XML preview</div>
+            <pre class="xml" id="stPreviewBlock">(generated on build/send)</pre>
+            <div class="result-block" id="stResult"></div>
+        </div>
+    </div>
+
+    <!-- Get transaction -->
+    <div class="card">
+        <div class="card-head"><span class="method m-get">GET</span> /esign/transaction/{id}
+            <span class="endpoint-path">— fetch stored response</span></div>
+        <div class="card-body">
+            <div class="grid">
+                <div class="field"><label>transaction id</label><input id="gt-txn-id" placeholder="ESN_..."></div>
+            </div>
+            <div class="row-actions">
+                <button id="sendGetTxn">Fetch transaction</button>
+            </div>
+            <div class="result-block" id="gtResult"></div>
+        </div>
+    </div>
+
+    <!-- Auth callback -->
+    <div class="card">
+        <div class="card-head"><span class="method m-post">POST</span> /esign/auth/callback
+            <span class="endpoint-path">— txnref = base64(txn|responseCode)</span></div>
+        <div class="card-body">
+            <div class="grid">
+                <div class="field"><label>transaction id</label><input id="cb-txn" placeholder="ESN_..."></div>
+                <div class="field"><label>responseCode (1 = success)</label><input id="cb-code" value="1"></div>
+            </div>
+            <div class="row-actions">
+                <button id="sendCallback">Send callback</button>
+            </div>
+            <p class="hint" id="cb-preview">txnref will appear here</p>
+            <div class="result-block" id="cbResult"></div>
+        </div>
+    </div>
+</main>
+
+<script src="/js/app.js"></script>
+<script src="/js/esign.js"></script>
+</body>
+</html>

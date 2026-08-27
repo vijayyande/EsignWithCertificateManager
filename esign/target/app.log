@@ -1,0 +1,1473 @@
+2026-08-27 13:11:38.177 [main] INFO  in.gov.cca.esign.EsignApplication - Starting EsignApplication v3.3.0 using Java 21.0.11 with PID 19900 (D:\Projects\esign\target\esign-api-3.3.0.jar started by vijay in D:\Projects\esign)
+2026-08-27 13:11:38.188 [main] DEBUG in.gov.cca.esign.EsignApplication - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-08-27 13:11:38.189 [main] INFO  in.gov.cca.esign.EsignApplication - The following 1 profile is active: "dev"
+2026-08-27 13:11:39.192 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-08-27 13:11:39.193 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-27 13:11:39.312 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 120 ms. Found 8 JPA repository interfaces.
+2026-08-27 13:11:41.136 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-08-27 13:11:41.162 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-08-27 13:11:41.162 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-08-27 13:11:41.213 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-08-27 13:11:41.213 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2927 ms
+2026-08-27 13:11:41.568 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-08-27 13:11:42.076 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./data/esign user=SA
+2026-08-27 13:11:42.076 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-08-27 13:11:42.092 [main] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./data/esign'
+2026-08-27 13:11:42.676 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-08-27 13:11:42.889 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-08-27 13:11:43.009 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-08-27 13:11:43.484 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-27 13:11:43.525 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-08-27 13:11:45.332 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-27 13:11:45.493 [main] WARN  o.h.t.s.i.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Error executing DDL "
+    create index idx_status 
+       on esign_transactions (status)" via JDBC [Index "IDX_STATUS" already exists;]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    create index idx_status 
+       on esign_transactions (status)" via JDBC [Index "IDX_STATUS" already exists;]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:574)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:514)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applyIndexes(AbstractSchemaMigrator.java:360)
+	at org.hibernate.tool.schema.internal.GroupedSchemaMigratorImpl.performTablesMigration(GroupedSchemaMigratorImpl.java:96)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:232)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:117)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:286)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:315)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1507)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1833)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1234)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:952)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
+	at in.gov.cca.esign.EsignApplication.main(EsignApplication.java:20)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:91)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:53)
+	at org.springframework.boot.loader.launch.JarLauncher.main(JarLauncher.java:58)
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: Index "IDX_STATUS" already exists; SQL statement:
+
+    create index idx_status 
+       on esign_transactions (s [42111-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.ddl.CreateIndex.update(CreateIndex.java:76)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:169)
+	at org.h2.command.Command.executeUpdate(Command.java:256)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	... 43 common frames omitted
+2026-08-27 13:11:45.530 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-27 13:11:46.325 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-08-27 13:11:49.014 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-27 13:11:49.077 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 8b0fcadf-9406-473d-9f92-755ca54fd222
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-08-27 13:11:49.384 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-08-27 13:11:49.889 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 5 endpoint(s) beneath base path '/actuator'
+2026-08-27 13:11:50.013 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@b46d595, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5234f6c5, org.springframework.security.web.context.SecurityContextHolderFilter@320c3e34, org.springframework.security.web.header.HeaderWriterFilter@28c0942f, org.springframework.web.filter.CorsFilter@50dffff3, org.springframework.security.web.authentication.logout.LogoutFilter@1ec7388c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@32ac4251, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3caed20a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@366558a2, org.springframework.security.web.session.SessionManagementFilter@4f0aa08b, org.springframework.security.web.access.ExceptionTranslationFilter@4cd4e20b, org.springframework.security.web.access.intercept.AuthorizationFilter@712626aa]
+2026-08-27 13:11:50.991 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-08-27 13:11:51.008 [main] INFO  in.gov.cca.esign.EsignApplication - Started EsignApplication in 13.339 seconds (process running for 13.952)
+2026-08-27 13:11:51.326 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-27 13:11:51.326 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-08-27 13:11:51.326 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2026-08-27 13:11:51.385 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:11:51.414 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:11:51.425 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:11:53.625 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:11:53.630 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:11:53.630 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:11:55.646 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:11:55.647 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:11:55.649 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:11:57.679 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:11:57.679 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:11:57.681 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:11:59.694 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:11:59.694 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:11:59.694 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:01.727 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:01.727 [http-nio-8080-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:01.727 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:03.756 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:03.756 [http-nio-8080-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:03.756 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:05.773 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:05.777 [http-nio-8080-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:05.777 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:07.792 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:07.792 [http-nio-8080-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:07.792 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:09.827 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:09.827 [http-nio-8080-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:09.827 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:11.845 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:11.846 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:11.846 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:13.861 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:13.862 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:13.863 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:15.876 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:15.876 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:15.879 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:17.892 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:17.892 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:17.895 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:19.908 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:19.908 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:19.908 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:21.940 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:21.942 [http-nio-8080-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:21.943 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:23.961 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:23.961 [http-nio-8080-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:23.961 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:25.976 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:25.978 [http-nio-8080-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:25.978 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:27.994 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:27.994 [http-nio-8080-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:27.994 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:30.022 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:30.025 [http-nio-8080-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:30.025 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:32.044 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:32.045 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:32.046 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:34.063 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:34.064 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:34.065 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:36.077 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:36.077 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:36.078 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:38.094 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:38.094 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:38.094 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:40.110 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:40.113 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:40.113 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:42.125 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:42.125 [http-nio-8080-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:42.129 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:44.144 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:44.144 [http-nio-8080-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:44.144 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:46.176 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:46.177 [http-nio-8080-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:46.178 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:48.195 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:48.195 [http-nio-8080-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:48.198 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:50.209 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:50.209 [http-nio-8080-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:50.209 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:52.243 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:52.244 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:52.245 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:54.261 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:54.262 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:54.263 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:56.294 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:56.296 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:56.296 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:12:58.313 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:12:58.313 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:12:58.313 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:13:00.329 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:13:00.329 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:13:00.329 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:13:02.345 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:13:02.345 [http-nio-8080-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:13:02.345 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:13:04.372 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:13:04.375 [http-nio-8080-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:13:04.375 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:13:06.394 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:13:06.394 [http-nio-8080-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:13:06.394 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:13:08.423 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:13:08.427 [http-nio-8080-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:13:08.427 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:13:10.444 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:13:10.444 [http-nio-8080-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:13:10.444 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:13:12.471 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:13:12.471 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:13:12.471 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:13:14.488 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:13:14.491 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:13:14.494 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:13:16.509 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:13:16.511 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:13:16.511 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 13:13:47.276 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 13:13:47.276 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 13:13:47.276 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 14:39:01.379 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/request
+2026-08-27 14:39:01.379 [http-nio-8080-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 14:39:01.379 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/request
+2026-08-27 14:39:01.379 [http-nio-8080-exec-7] INFO  i.g.c.e.controller.EsignController - Received eSign request from IP: 0:0:0:0:0:0:0:1
+2026-08-27 14:39:01.626 [http-nio-8080-exec-7] INFO  i.g.c.e.s.impl.EsignServiceImpl - Processing eSign request txn: TXN-ADOBE-1787821741 asp: ASP001
+2026-08-27 14:39:12.865 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/request
+2026-08-27 14:39:12.865 [http-nio-8080-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 14:39:12.865 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/request
+2026-08-27 14:39:12.865 [http-nio-8080-exec-9] INFO  i.g.c.e.controller.EsignController - Received eSign request from IP: 0:0:0:0:0:0:0:1
+2026-08-27 14:39:12.865 [http-nio-8080-exec-9] INFO  i.g.c.e.s.impl.EsignServiceImpl - Processing eSign request txn: TXN-ADOBE-1787821752 asp: ASP001
+2026-08-27 14:39:22.283 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/dev/send-otp?username=demosigner&txn=TXN-ADOBE-1787821752
+2026-08-27 14:39:22.283 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 14:39:22.283 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/dev/send-otp?username=demosigner&txn=TXN-ADOBE-1787821752
+2026-08-27 14:39:22.298 [http-nio-8080-exec-1] INFO  i.g.c.e.service.impl.OtpServiceImpl - SMS OTP dispatched for user: demosigner txn: TXN-ADOBE-1787821752 (masked: 6****)
+2026-08-27 14:39:22.298 [http-nio-8080-exec-1] WARN  i.g.c.e.controller.DevTestController - [DEV] OTP exposed over unsecured dev endpoint for user demosigner
+2026-08-27 14:39:22.415 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/dev/auth-and-sign
+2026-08-27 14:39:22.415 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 14:39:22.415 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/dev/auth-and-sign
+2026-08-27 14:39:22.429 [http-nio-8080-exec-3] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.lang.String` from Object value (token `JsonToken.START_OBJECT`)]
+2026-08-27 14:39:22.429 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing POST /error
+2026-08-27 14:39:22.429 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured POST /error
+2026-08-27 14:39:22.447 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 14:39:32.184 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/dev/auth-and-sign
+2026-08-27 14:39:32.184 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 14:39:32.185 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/dev/auth-and-sign
+2026-08-27 14:39:32.185 [http-nio-8080-exec-2] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.lang.String` from Object value (token `JsonToken.START_OBJECT`)]
+2026-08-27 14:39:32.185 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /error
+2026-08-27 14:39:32.185 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /error
+2026-08-27 14:39:32.185 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 14:40:41.511 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/dev/auth-and-sign
+2026-08-27 14:40:41.512 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 14:40:41.513 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/dev/auth-and-sign
+2026-08-27 14:40:41.515 [http-nio-8080-exec-4] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.lang.String` from Object value (token `JsonToken.START_OBJECT`)]
+2026-08-27 14:40:41.517 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing POST /error
+2026-08-27 14:40:41.518 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured POST /error
+2026-08-27 14:40:41.520 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 14:40:51.581 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/dev/auth-and-sign
+2026-08-27 14:40:51.581 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 14:40:51.581 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/dev/auth-and-sign
+2026-08-27 14:40:51.781 [http-nio-8080-exec-5] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM signing flow for signer='demosigner': step 1 — request certificate from CM
+2026-08-27 14:40:52.115 [http-nio-8080-exec-5] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM issued certificate id=37 for signer='demosigner'
+2026-08-27 14:40:52.199 [http-nio-8080-exec-5] WARN  i.g.c.e.s.i.CertificateServiceImpl - CM signing failed for 'demosigner', falling back to local: 403 : [no body]
+2026-08-27 14:40:52.745 [http-nio-8080-exec-5] INFO  i.g.c.e.s.i.CertificateServiceImpl - Generated self-signed certificate for CN='demosigner', valid 365 days
+2026-08-27 14:40:52.766 [http-nio-8080-exec-5] INFO  i.g.c.e.s.i.CertificateServiceImpl - Local signing for signer='demosigner', algorithm=RSA
+2026-08-27 14:40:53.330 [http-nio-8080-exec-5] INFO  i.g.c.e.s.impl.TimestampServiceImpl - TSA timestamp embedded from http://timestamp.digicert.com
+2026-08-27 14:40:53.330 [http-nio-8080-exec-5] INFO  i.g.c.e.service.EsignSigningService - Transaction TXN-ADOBE-1787821752 signed via CM — 1 document(s)
+2026-08-27 14:42:10.551 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/certificates/settings
+2026-08-27 14:42:10.552 [http-nio-8080-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 14:42:10.553 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/certificates/settings
+2026-08-27 14:43:54.365 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/request
+2026-08-27 14:43:54.365 [http-nio-8080-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 14:43:54.365 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/request
+2026-08-27 14:43:54.365 [http-nio-8080-exec-9] INFO  i.g.c.e.controller.EsignController - Received eSign request from IP: 0:0:0:0:0:0:0:1
+2026-08-27 14:43:54.365 [http-nio-8080-exec-9] INFO  i.g.c.e.s.impl.EsignServiceImpl - Processing eSign request txn: TXN-RETRY-1787822034 asp: ASP001
+2026-08-27 14:43:54.415 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/dev/send-otp?username=demosigner&txn=TXN-RETRY-1787822034
+2026-08-27 14:43:54.415 [http-nio-8080-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 14:43:54.415 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/dev/send-otp?username=demosigner&txn=TXN-RETRY-1787822034
+2026-08-27 14:43:54.430 [http-nio-8080-exec-10] INFO  i.g.c.e.service.impl.OtpServiceImpl - SMS OTP dispatched for user: demosigner txn: TXN-RETRY-1787822034 (masked: 7****)
+2026-08-27 14:43:54.430 [http-nio-8080-exec-10] WARN  i.g.c.e.controller.DevTestController - [DEV] OTP exposed over unsecured dev endpoint for user demosigner
+2026-08-27 14:43:54.504 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/dev/auth-and-sign
+2026-08-27 14:43:54.505 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 14:43:54.506 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/dev/auth-and-sign
+2026-08-27 14:43:54.617 [http-nio-8080-exec-1] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM signing flow for signer='demosigner': step 1 — request certificate from CM
+2026-08-27 14:43:54.803 [http-nio-8080-exec-1] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM issued certificate id=40 for signer='demosigner'
+2026-08-27 14:43:54.886 [http-nio-8080-exec-1] WARN  i.g.c.e.s.i.CertificateServiceImpl - CM signing failed for 'demosigner', falling back to local: 403 : [no body]
+2026-08-27 14:43:54.980 [http-nio-8080-exec-1] INFO  i.g.c.e.s.i.CertificateServiceImpl - Generated self-signed certificate for CN='demosigner', valid 365 days
+2026-08-27 14:43:54.980 [http-nio-8080-exec-1] INFO  i.g.c.e.s.i.CertificateServiceImpl - Local signing for signer='demosigner', algorithm=RSA
+2026-08-27 14:43:55.523 [http-nio-8080-exec-1] INFO  i.g.c.e.s.impl.TimestampServiceImpl - TSA timestamp embedded from http://timestamp.digicert.com
+2026-08-27 14:43:55.525 [http-nio-8080-exec-1] INFO  i.g.c.e.service.EsignSigningService - Transaction TXN-RETRY-1787822034 signed via CM — 1 document(s)
+2026-08-27 14:45:17.808 [main] INFO  in.gov.cca.esign.EsignApplication - Starting EsignApplication v3.3.0 using Java 21.0.11 with PID 4036 (D:\Projects\esign\target\esign-api-3.3.0.jar started by vijay in D:\Projects\esign)
+2026-08-27 14:45:17.817 [main] DEBUG in.gov.cca.esign.EsignApplication - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-08-27 14:45:17.818 [main] INFO  in.gov.cca.esign.EsignApplication - The following 1 profile is active: "dev"
+2026-08-27 14:45:19.432 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-08-27 14:45:19.432 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-27 14:45:19.835 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 377 ms. Found 8 JPA repository interfaces.
+2026-08-27 14:45:23.747 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-08-27 14:45:23.789 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-08-27 14:45:23.790 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-08-27 14:45:23.877 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-08-27 14:45:23.877 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5938 ms
+2026-08-27 14:45:24.236 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-08-27 14:45:24.858 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./data/esign user=SA
+2026-08-27 14:45:24.860 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-08-27 14:45:24.872 [main] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./data/esign'
+2026-08-27 14:45:25.677 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-08-27 14:45:25.957 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-08-27 14:45:26.051 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-08-27 14:45:26.699 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-27 14:45:26.772 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-08-27 14:45:29.139 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-27 14:45:29.271 [main] WARN  o.h.t.s.i.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Error executing DDL "
+    create index idx_status 
+       on esign_transactions (status)" via JDBC [Index "IDX_STATUS" already exists;]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    create index idx_status 
+       on esign_transactions (status)" via JDBC [Index "IDX_STATUS" already exists;]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:574)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:514)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applyIndexes(AbstractSchemaMigrator.java:360)
+	at org.hibernate.tool.schema.internal.GroupedSchemaMigratorImpl.performTablesMigration(GroupedSchemaMigratorImpl.java:96)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:232)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:117)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:286)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:315)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1507)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1833)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1234)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:952)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
+	at in.gov.cca.esign.EsignApplication.main(EsignApplication.java:20)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:91)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:53)
+	at org.springframework.boot.loader.launch.JarLauncher.main(JarLauncher.java:58)
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: Index "IDX_STATUS" already exists; SQL statement:
+
+    create index idx_status 
+       on esign_transactions (s [42111-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.ddl.CreateIndex.update(CreateIndex.java:76)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:169)
+	at org.h2.command.Command.executeUpdate(Command.java:256)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	... 43 common frames omitted
+2026-08-27 14:45:29.301 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-27 14:45:30.034 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-08-27 14:45:33.401 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-27 14:45:33.504 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 3931c62e-f5b6-4f22-a47c-1bccbef3db2a
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-08-27 14:45:33.748 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-08-27 14:45:34.456 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 5 endpoint(s) beneath base path '/actuator'
+2026-08-27 14:45:34.552 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@366558a2, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@bb2c986, org.springframework.security.web.context.SecurityContextHolderFilter@61022ddb, org.springframework.security.web.header.HeaderWriterFilter@10c7ebbb, org.springframework.web.filter.CorsFilter@7ec594eb, org.springframework.security.web.authentication.logout.LogoutFilter@1b71156f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3caed20a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@62e2fc61, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@514acca7, org.springframework.security.web.session.SessionManagementFilter@db85c26, org.springframework.security.web.access.ExceptionTranslationFilter@3779773f, org.springframework.security.web.access.intercept.AuthorizationFilter@4b95a93b]
+2026-08-27 14:45:35.282 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-08-27 14:45:35.300 [main] INFO  in.gov.cca.esign.EsignApplication - Started EsignApplication in 18.164 seconds (process running for 18.844)
+2026-08-27 14:45:35.720 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-27 14:45:35.723 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-08-27 14:45:35.726 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2026-08-27 14:45:35.758 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 14:45:35.781 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 14:45:35.788 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 14:45:50.765 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/request
+2026-08-27 14:45:50.765 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 14:45:50.765 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/request
+2026-08-27 14:45:50.781 [http-nio-8080-exec-2] INFO  i.g.c.e.controller.EsignController - Received eSign request from IP: 0:0:0:0:0:0:0:1
+2026-08-27 14:45:51.081 [http-nio-8080-exec-2] INFO  i.g.c.e.s.impl.EsignServiceImpl - Processing eSign request txn: TXN-FIX-1787822150 asp: ASP001
+2026-08-27 14:45:51.265 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/dev/send-otp?username=demosigner&txn=TXN-FIX-1787822150
+2026-08-27 14:45:51.265 [http-nio-8080-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 14:45:51.265 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/dev/send-otp?username=demosigner&txn=TXN-FIX-1787822150
+2026-08-27 14:45:51.315 [http-nio-8080-exec-7] INFO  i.g.c.e.service.impl.OtpServiceImpl - SMS OTP dispatched for user: demosigner txn: TXN-FIX-1787822150 (masked: 1****)
+2026-08-27 14:45:51.315 [http-nio-8080-exec-7] WARN  i.g.c.e.controller.DevTestController - [DEV] OTP exposed over unsecured dev endpoint for user demosigner
+2026-08-27 14:45:51.431 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/dev/auth-and-sign
+2026-08-27 14:45:51.431 [http-nio-8080-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 14:45:51.431 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/dev/auth-and-sign
+2026-08-27 14:45:51.693 [http-nio-8080-exec-6] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM signing flow for signer='demosigner': step 1 — request certificate from CM
+2026-08-27 14:45:52.366 [http-nio-8080-exec-6] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM issued certificate id=41 for signer='demosigner'
+2026-08-27 14:45:52.482 [http-nio-8080-exec-6] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM fetched private key for certificate id=41
+2026-08-27 14:45:52.626 [http-nio-8080-exec-6] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM chain for cert id=41: 2 certificate(s)
+2026-08-27 14:45:52.824 [http-nio-8080-exec-6] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM signing complete for signer='demosigner': cert id=41, algorithm=SHA256withRSA
+2026-08-27 14:45:53.382 [http-nio-8080-exec-6] INFO  i.g.c.e.s.impl.TimestampServiceImpl - TSA timestamp embedded from http://timestamp.digicert.com
+2026-08-27 14:45:53.382 [http-nio-8080-exec-6] INFO  i.g.c.e.service.EsignSigningService - Transaction TXN-FIX-1787822150 signed via CM — 1 document(s)
+2026-08-27 14:56:13.258 [main] INFO  in.gov.cca.esign.EsignApplication - Starting EsignApplication v3.3.0 using Java 21.0.11 with PID 37744 (D:\Projects\esign\target\esign-api-3.3.0.jar started by vijay in D:\Projects\esign)
+2026-08-27 14:56:13.264 [main] DEBUG in.gov.cca.esign.EsignApplication - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-08-27 14:56:13.265 [main] INFO  in.gov.cca.esign.EsignApplication - The following 1 profile is active: "dev"
+2026-08-27 14:56:17.471 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-08-27 14:56:17.471 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-27 14:56:17.866 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 369 ms. Found 8 JPA repository interfaces.
+2026-08-27 14:56:23.349 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-08-27 14:56:23.415 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-08-27 14:56:23.415 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-08-27 14:56:23.549 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-08-27 14:56:23.549 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 10075 ms
+2026-08-27 14:56:24.160 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-08-27 14:56:25.142 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./data/esign user=SA
+2026-08-27 14:56:25.145 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-08-27 14:56:25.167 [main] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./data/esign'
+2026-08-27 14:56:26.249 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-08-27 14:56:26.582 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-08-27 14:56:26.660 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-08-27 14:56:27.149 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-27 14:56:27.225 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-08-27 14:56:29.565 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-27 14:56:29.692 [main] WARN  o.h.t.s.i.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Error executing DDL "
+    create index idx_status 
+       on esign_transactions (status)" via JDBC [Index "IDX_STATUS" already exists;]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    create index idx_status 
+       on esign_transactions (status)" via JDBC [Index "IDX_STATUS" already exists;]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:574)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:514)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applyIndexes(AbstractSchemaMigrator.java:360)
+	at org.hibernate.tool.schema.internal.GroupedSchemaMigratorImpl.performTablesMigration(GroupedSchemaMigratorImpl.java:96)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:232)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:117)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:286)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:315)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1507)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1833)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1234)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:952)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
+	at in.gov.cca.esign.EsignApplication.main(EsignApplication.java:20)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:91)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:53)
+	at org.springframework.boot.loader.launch.JarLauncher.main(JarLauncher.java:58)
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: Index "IDX_STATUS" already exists; SQL statement:
+
+    create index idx_status 
+       on esign_transactions (s [42111-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.ddl.CreateIndex.update(CreateIndex.java:76)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:169)
+	at org.h2.command.Command.executeUpdate(Command.java:256)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	... 43 common frames omitted
+2026-08-27 14:56:29.732 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-27 14:56:30.648 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-08-27 14:56:35.502 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-27 14:56:35.586 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 7ead51da-aef8-4f64-b1d8-1e03a9b98b06
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-08-27 14:56:36.011 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-08-27 14:56:36.870 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 5 endpoint(s) beneath base path '/actuator'
+2026-08-27 14:56:37.116 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5234f6c5, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@50dffff3, org.springframework.security.web.context.SecurityContextHolderFilter@5c15c93a, org.springframework.security.web.header.HeaderWriterFilter@4481bb41, org.springframework.web.filter.CorsFilter@366558a2, org.springframework.security.web.authentication.logout.LogoutFilter@7751cdf5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@40020127, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6c40a104, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@bb2c986, org.springframework.security.web.session.SessionManagementFilter@1d48a31, org.springframework.security.web.access.ExceptionTranslationFilter@51044708, org.springframework.security.web.access.intercept.AuthorizationFilter@4d228131]
+2026-08-27 14:56:38.833 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-08-27 14:56:38.880 [main] INFO  in.gov.cca.esign.EsignApplication - Started EsignApplication in 26.731 seconds (process running for 27.583)
+2026-08-27 14:56:39.216 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-27 14:56:39.217 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-08-27 14:56:39.219 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-08-27 14:56:39.249 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 14:56:39.317 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 14:56:39.333 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 14:57:04.274 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/sign.js
+2026-08-27 14:57:04.277 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 14:57:04.280 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/sign.js
+2026-08-27 14:59:27.744 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /sign.html?lookup=TXN-MTB736FH
+2026-08-27 14:59:27.744 [http-nio-8080-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 14:59:27.744 [http-nio-8080-exec-9] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id F2EE9D4813C0C02B1864D6829795A588
+2026-08-27 14:59:27.744 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /sign.html?lookup=TXN-MTB736FH
+2026-08-27 14:59:27.772 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/app.css
+2026-08-27 14:59:27.772 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/sign.js?v=7
+2026-08-27 14:59:27.772 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/app.js
+2026-08-27 14:59:27.772 [http-nio-8080-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 14:59:27.772 [http-nio-8080-exec-8] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id F2EE9D4813C0C02B1864D6829795A588
+2026-08-27 14:59:27.772 [http-nio-8080-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 14:59:27.772 [http-nio-8080-exec-10] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id F2EE9D4813C0C02B1864D6829795A588
+2026-08-27 14:59:27.772 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/sign.js?v=7
+2026-08-27 14:59:27.772 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 14:59:27.772 [http-nio-8080-exec-4] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id F2EE9D4813C0C02B1864D6829795A588
+2026-08-27 14:59:27.772 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/app.css
+2026-08-27 14:59:27.772 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/app.js
+2026-08-27 14:59:27.975 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/dev/transactions/TXN-MTB736FH
+2026-08-27 14:59:27.975 [http-nio-8080-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 14:59:27.975 [http-nio-8080-exec-6] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id F2EE9D4813C0C02B1864D6829795A588
+2026-08-27 14:59:27.975 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/dev/transactions/TXN-MTB736FH
+2026-08-27 15:03:03.206 [main] INFO  in.gov.cca.esign.EsignApplication - Starting EsignApplication v3.3.0 using Java 21.0.11 with PID 13864 (D:\Projects\esign\target\esign-api-3.3.0.jar started by vijay in D:\Projects\esign)
+2026-08-27 15:03:03.208 [main] DEBUG in.gov.cca.esign.EsignApplication - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-08-27 15:03:03.208 [main] INFO  in.gov.cca.esign.EsignApplication - The following 1 profile is active: "dev"
+2026-08-27 15:03:04.210 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-08-27 15:03:04.210 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-27 15:03:04.335 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 121 ms. Found 8 JPA repository interfaces.
+2026-08-27 15:03:06.101 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-08-27 15:03:06.129 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-08-27 15:03:06.129 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-08-27 15:03:06.254 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-08-27 15:03:06.254 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2955 ms
+2026-08-27 15:03:06.435 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-08-27 15:03:06.828 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./data/esign user=SA
+2026-08-27 15:03:06.830 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-08-27 15:03:06.845 [main] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./data/esign'
+2026-08-27 15:03:07.517 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-08-27 15:03:07.659 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-08-27 15:03:07.752 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-08-27 15:03:08.324 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-27 15:03:08.361 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-08-27 15:03:09.795 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-27 15:03:09.887 [main] WARN  o.h.t.s.i.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Error executing DDL "
+    create index idx_status 
+       on esign_transactions (status)" via JDBC [Index "IDX_STATUS" already exists;]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    create index idx_status 
+       on esign_transactions (status)" via JDBC [Index "IDX_STATUS" already exists;]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:574)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:514)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applyIndexes(AbstractSchemaMigrator.java:360)
+	at org.hibernate.tool.schema.internal.GroupedSchemaMigratorImpl.performTablesMigration(GroupedSchemaMigratorImpl.java:96)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:232)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:117)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:286)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:315)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1507)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1833)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1234)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:952)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
+	at in.gov.cca.esign.EsignApplication.main(EsignApplication.java:20)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:91)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:53)
+	at org.springframework.boot.loader.launch.JarLauncher.main(JarLauncher.java:58)
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: Index "IDX_STATUS" already exists; SQL statement:
+
+    create index idx_status 
+       on esign_transactions (s [42111-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.ddl.CreateIndex.update(CreateIndex.java:76)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:169)
+	at org.h2.command.Command.executeUpdate(Command.java:256)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	... 43 common frames omitted
+2026-08-27 15:03:09.910 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-27 15:03:10.585 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-08-27 15:03:13.649 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-27 15:03:13.702 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 343d187c-3e01-46b1-a875-49a90ceb06ad
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-08-27 15:03:13.902 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-08-27 15:03:14.393 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 5 endpoint(s) beneath base path '/actuator'
+2026-08-27 15:03:14.524 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7751cdf5, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4fbfc86f, org.springframework.security.web.context.SecurityContextHolderFilter@50357562, org.springframework.security.web.header.HeaderWriterFilter@1b0b843b, org.springframework.web.filter.CorsFilter@1b71156f, org.springframework.security.web.authentication.logout.LogoutFilter@54cc182a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@547cc110, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2281daba, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3c554dd5, org.springframework.security.web.session.SessionManagementFilter@c4231e8, org.springframework.security.web.access.ExceptionTranslationFilter@3823e936, org.springframework.security.web.access.intercept.AuthorizationFilter@5f36c928]
+2026-08-27 15:03:15.492 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-08-27 15:03:15.508 [main] INFO  in.gov.cca.esign.EsignApplication - Started EsignApplication in 12.809 seconds (process running for 13.467)
+2026-08-27 15:03:15.774 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-27 15:03:15.775 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-08-27 15:03:15.776 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-08-27 15:03:15.818 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 15:03:15.848 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:03:15.859 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 15:03:16.041 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/sign.js
+2026-08-27 15:03:16.041 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:03:16.041 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/sign.js
+2026-08-27 15:05:33.420 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /sign.html?lookup=TXN-MTB736FH
+2026-08-27 15:05:33.421 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:05:33.421 [http-nio-8080-exec-4] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:05:33.422 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /sign.html?lookup=TXN-MTB736FH
+2026-08-27 15:05:33.433 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/app.css
+2026-08-27 15:05:33.433 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/sign.js?v=7
+2026-08-27 15:05:33.433 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/app.js
+2026-08-27 15:05:33.434 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:05:33.434 [http-nio-8080-exec-5] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:05:33.435 [http-nio-8080-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:05:33.435 [http-nio-8080-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:05:33.435 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/app.css
+2026-08-27 15:05:33.435 [http-nio-8080-exec-6] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:05:33.435 [http-nio-8080-exec-9] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:05:33.436 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/app.js
+2026-08-27 15:05:33.436 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/sign.js?v=7
+2026-08-27 15:05:33.558 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/dev/transactions/TXN-MTB736FH
+2026-08-27 15:05:33.559 [http-nio-8080-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:05:33.559 [http-nio-8080-exec-8] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:05:33.560 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/dev/transactions/TXN-MTB736FH
+2026-08-27 15:05:38.051 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/request
+2026-08-27 15:05:38.051 [http-nio-8080-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:05:38.051 [http-nio-8080-exec-7] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:05:38.051 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/request
+2026-08-27 15:05:38.051 [http-nio-8080-exec-7] INFO  i.g.c.e.controller.EsignController - Received eSign request from IP: 0:0:0:0:0:0:0:1
+2026-08-27 15:05:38.209 [http-nio-8080-exec-7] INFO  i.g.c.e.s.impl.EsignServiceImpl - Processing eSign request txn: TXN-MTBBUSE7 asp: ASP001
+2026-08-27 15:05:39.300 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/status
+2026-08-27 15:05:39.300 [http-nio-8080-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:05:39.300 [http-nio-8080-exec-10] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:05:39.300 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/status
+2026-08-27 15:05:39.300 [http-nio-8080-exec-10] INFO  i.g.c.e.controller.EsignController - Received eSign status check from IP: 0:0:0:0:0:0:0:1
+2026-08-27 15:05:39.300 [http-nio-8080-exec-10] INFO  i.g.c.e.s.impl.EsignServiceImpl - Checking signing status txn: TXN-MTBBUSE7
+2026-08-27 15:05:40.322 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/status
+2026-08-27 15:05:40.323 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:05:40.323 [http-nio-8080-exec-1] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:05:40.325 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/status
+2026-08-27 15:05:40.326 [http-nio-8080-exec-1] INFO  i.g.c.e.controller.EsignController - Received eSign status check from IP: 0:0:0:0:0:0:0:1
+2026-08-27 15:05:40.327 [http-nio-8080-exec-1] INFO  i.g.c.e.s.impl.EsignServiceImpl - Checking signing status txn: TXN-MTBBUSE7
+2026-08-27 15:05:40.824 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /auth.html?txn=TXN-MTBBUSE7
+2026-08-27 15:05:40.825 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:05:40.825 [http-nio-8080-exec-2] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:05:40.826 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /auth.html?txn=TXN-MTBBUSE7
+2026-08-27 15:05:40.835 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/app.js
+2026-08-27 15:05:40.835 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/app.css
+2026-08-27 15:05:40.835 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/auth.js?v=1
+2026-08-27 15:05:40.835 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:05:40.835 [http-nio-8080-exec-4] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:05:40.835 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:05:40.835 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:05:40.835 [http-nio-8080-exec-5] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:05:40.835 [http-nio-8080-exec-3] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:05:40.835 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/app.js
+2026-08-27 15:05:40.835 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/auth.js?v=1
+2026-08-27 15:05:40.835 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/app.css
+2026-08-27 15:05:40.852 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/dev/transactions/TXN-MTBBUSE7
+2026-08-27 15:05:40.852 [http-nio-8080-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:05:40.852 [http-nio-8080-exec-9] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:05:40.852 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/dev/transactions/TXN-MTBBUSE7
+2026-08-27 15:05:42.502 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/dev/send-otp?username=demosigner&txn=TXN-MTBBUSE7
+2026-08-27 15:05:42.502 [http-nio-8080-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:05:42.502 [http-nio-8080-exec-6] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:05:42.502 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/dev/send-otp?username=demosigner&txn=TXN-MTBBUSE7
+2026-08-27 15:05:42.510 [http-nio-8080-exec-6] INFO  i.g.c.e.service.impl.OtpServiceImpl - SMS OTP dispatched for user: demosigner txn: TXN-MTBBUSE7 (masked: 8****)
+2026-08-27 15:05:42.510 [http-nio-8080-exec-6] WARN  i.g.c.e.controller.DevTestController - [DEV] OTP exposed over unsecured dev endpoint for user demosigner
+2026-08-27 15:05:48.020 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/dev/auth-and-sign
+2026-08-27 15:05:48.021 [http-nio-8080-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:05:48.021 [http-nio-8080-exec-8] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:05:48.022 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/dev/auth-and-sign
+2026-08-27 15:05:48.183 [http-nio-8080-exec-8] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM signing flow for signer='demosigner': step 1 — request certificate from CM
+2026-08-27 15:05:48.649 [http-nio-8080-exec-8] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM issued certificate id=42 for signer='demosigner'
+2026-08-27 15:05:48.758 [http-nio-8080-exec-8] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM fetched private key for certificate id=42
+2026-08-27 15:05:48.901 [http-nio-8080-exec-8] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM chain for cert id=42: 2 certificate(s)
+2026-08-27 15:05:49.064 [http-nio-8080-exec-8] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM signing complete for signer='demosigner': cert id=42, algorithm=SHA256withRSA
+2026-08-27 15:05:52.591 [http-nio-8080-exec-8] INFO  i.g.c.e.s.impl.TimestampServiceImpl - TSA timestamp embedded from http://timestamp.digicert.com
+2026-08-27 15:05:52.595 [http-nio-8080-exec-8] INFO  i.g.c.e.service.EsignSigningService - Transaction TXN-MTBBUSE7 signed via CM — 1 document(s)
+2026-08-27 15:05:54.255 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /sign.html?lookup=TXN-MTBBUSE7
+2026-08-27 15:05:54.256 [http-nio-8080-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:05:54.257 [http-nio-8080-exec-7] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:05:54.258 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /sign.html?lookup=TXN-MTBBUSE7
+2026-08-27 15:05:54.267 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/sign.js?v=7
+2026-08-27 15:05:54.267 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/app.css
+2026-08-27 15:05:54.267 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/app.js
+2026-08-27 15:05:54.267 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:05:54.267 [http-nio-8080-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:05:54.267 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:05:54.268 [http-nio-8080-exec-1] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:05:54.268 [http-nio-8080-exec-2] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:05:54.268 [http-nio-8080-exec-10] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:05:54.268 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/app.js
+2026-08-27 15:05:54.268 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/app.css
+2026-08-27 15:05:54.268 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/sign.js?v=7
+2026-08-27 15:05:54.291 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/dev/transactions/TXN-MTBBUSE7
+2026-08-27 15:05:54.292 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:05:54.292 [http-nio-8080-exec-4] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:05:54.293 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/dev/transactions/TXN-MTBBUSE7
+2026-08-27 15:05:54.304 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/dev/transactions/TXN-MTBBUSE7
+2026-08-27 15:05:54.304 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:05:54.304 [http-nio-8080-exec-3] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:05:54.304 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/dev/transactions/TXN-MTBBUSE7
+2026-08-27 15:08:27.877 [main] INFO  in.gov.cca.esign.EsignApplication - Starting EsignApplication v3.3.0 using Java 21.0.11 with PID 38328 (D:\Projects\esign\target\esign-api-3.3.0.jar started by vijay in D:\Projects\esign)
+2026-08-27 15:08:27.877 [main] DEBUG in.gov.cca.esign.EsignApplication - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-08-27 15:08:27.877 [main] INFO  in.gov.cca.esign.EsignApplication - The following 1 profile is active: "dev"
+2026-08-27 15:08:28.852 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-08-27 15:08:28.852 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-27 15:08:28.985 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 114 ms. Found 8 JPA repository interfaces.
+2026-08-27 15:08:30.860 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-08-27 15:08:30.868 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-08-27 15:08:30.868 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-08-27 15:08:30.955 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-08-27 15:08:30.956 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2991 ms
+2026-08-27 15:08:31.449 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-08-27 15:08:31.970 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./data/esign user=SA
+2026-08-27 15:08:31.972 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-08-27 15:08:31.979 [main] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./data/esign'
+2026-08-27 15:08:32.650 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-08-27 15:08:32.819 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-08-27 15:08:32.885 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-08-27 15:08:33.536 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-27 15:08:33.611 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-08-27 15:08:35.191 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-27 15:08:35.257 [main] WARN  o.h.t.s.i.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Error executing DDL "
+    create index idx_status 
+       on esign_transactions (status)" via JDBC [Index "IDX_STATUS" already exists;]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    create index idx_status 
+       on esign_transactions (status)" via JDBC [Index "IDX_STATUS" already exists;]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:574)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:514)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applyIndexes(AbstractSchemaMigrator.java:360)
+	at org.hibernate.tool.schema.internal.GroupedSchemaMigratorImpl.performTablesMigration(GroupedSchemaMigratorImpl.java:96)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:232)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:117)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:286)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:315)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1507)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1833)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1234)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:952)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
+	at in.gov.cca.esign.EsignApplication.main(EsignApplication.java:20)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:91)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:53)
+	at org.springframework.boot.loader.launch.JarLauncher.main(JarLauncher.java:58)
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: Index "IDX_STATUS" already exists; SQL statement:
+
+    create index idx_status 
+       on esign_transactions (s [42111-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.ddl.CreateIndex.update(CreateIndex.java:76)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:169)
+	at org.h2.command.Command.executeUpdate(Command.java:256)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	... 43 common frames omitted
+2026-08-27 15:08:35.276 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-27 15:08:36.354 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-08-27 15:08:39.034 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-27 15:08:39.071 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 49b63ab0-6b20-4165-a233-c210d5b7fac9
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-08-27 15:08:39.204 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-08-27 15:08:39.630 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 5 endpoint(s) beneath base path '/actuator'
+2026-08-27 15:08:39.738 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@30062296, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@62ebd06c, org.springframework.security.web.context.SecurityContextHolderFilter@77858c1f, org.springframework.security.web.header.HeaderWriterFilter@ae04104, org.springframework.web.filter.CorsFilter@77e11820, org.springframework.security.web.authentication.logout.LogoutFilter@406f954c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4ab56032, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1d48a31, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@122673fe, org.springframework.security.web.session.SessionManagementFilter@75989b13, org.springframework.security.web.access.ExceptionTranslationFilter@2a88249d, org.springframework.security.web.access.intercept.AuthorizationFilter@52cd1595]
+2026-08-27 15:08:40.437 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-08-27 15:08:40.456 [main] INFO  in.gov.cca.esign.EsignApplication - Started EsignApplication in 13.087 seconds (process running for 13.717)
+2026-08-27 15:08:40.918 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-27 15:08:40.918 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-08-27 15:08:40.919 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2026-08-27 15:08:40.935 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 15:08:40.953 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:08:40.960 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 15:08:41.068 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/sign.js
+2026-08-27 15:08:41.068 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:08:41.068 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/sign.js
+2026-08-27 15:11:14.517 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /sign.html?lookup=TXN-MTBBUSE7
+2026-08-27 15:11:14.517 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:14.517 [http-nio-8080-exec-4] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:14.517 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /sign.html?lookup=TXN-MTBBUSE7
+2026-08-27 15:11:14.523 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/app.css
+2026-08-27 15:11:14.532 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/app.js
+2026-08-27 15:11:14.532 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/sign.js?v=7
+2026-08-27 15:11:14.532 [http-nio-8080-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:14.532 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:14.532 [http-nio-8080-exec-7] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:14.534 [http-nio-8080-exec-5] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:14.534 [http-nio-8080-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:14.534 [http-nio-8080-exec-6] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:14.534 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/app.css
+2026-08-27 15:11:14.534 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/app.js
+2026-08-27 15:11:14.535 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/sign.js?v=7
+2026-08-27 15:11:14.677 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/dev/transactions/TXN-MTBBUSE7
+2026-08-27 15:11:14.677 [http-nio-8080-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:14.677 [http-nio-8080-exec-8] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:14.677 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/dev/transactions/TXN-MTBBUSE7
+2026-08-27 15:11:14.706 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/dev/transactions/TXN-MTBBUSE7
+2026-08-27 15:11:14.706 [http-nio-8080-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:14.706 [http-nio-8080-exec-9] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:14.707 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/dev/transactions/TXN-MTBBUSE7
+2026-08-27 15:11:20.381 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /auth.html
+2026-08-27 15:11:20.383 [http-nio-8080-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:20.384 [http-nio-8080-exec-10] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:20.385 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /auth.html
+2026-08-27 15:11:20.393 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/app.css
+2026-08-27 15:11:20.394 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/auth.js?v=1
+2026-08-27 15:11:20.394 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/app.js
+2026-08-27 15:11:20.394 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:20.394 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:20.394 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:20.394 [http-nio-8080-exec-2] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:20.395 [http-nio-8080-exec-3] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:20.395 [http-nio-8080-exec-1] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:20.396 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/app.js
+2026-08-27 15:11:20.396 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/app.css
+2026-08-27 15:11:20.396 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/auth.js?v=1
+2026-08-27 15:11:21.276 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /sign.html
+2026-08-27 15:11:21.277 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:21.277 [http-nio-8080-exec-4] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:21.278 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /sign.html
+2026-08-27 15:11:21.287 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/app.js
+2026-08-27 15:11:21.287 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/sign.js?v=7
+2026-08-27 15:11:21.287 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/app.css
+2026-08-27 15:11:21.288 [http-nio-8080-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:21.288 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:21.288 [http-nio-8080-exec-6] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:21.288 [http-nio-8080-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:21.288 [http-nio-8080-exec-5] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:21.289 [http-nio-8080-exec-7] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:21.289 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/app.css
+2026-08-27 15:11:21.289 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/sign.js?v=7
+2026-08-27 15:11:21.289 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/app.js
+2026-08-27 15:11:22.809 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /sign.html
+2026-08-27 15:11:22.811 [http-nio-8080-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:22.811 [http-nio-8080-exec-8] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:22.812 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /sign.html
+2026-08-27 15:11:22.820 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/app.js
+2026-08-27 15:11:22.820 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/app.css
+2026-08-27 15:11:22.820 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/sign.js?v=7
+2026-08-27 15:11:22.821 [http-nio-8080-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:22.822 [http-nio-8080-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:22.822 [http-nio-8080-exec-10] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:22.822 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:22.822 [http-nio-8080-exec-9] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:22.822 [http-nio-8080-exec-3] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:22.822 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/app.js
+2026-08-27 15:11:22.823 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/app.css
+2026-08-27 15:11:22.823 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/sign.js?v=7
+2026-08-27 15:11:39.053 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /
+2026-08-27 15:11:39.055 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:39.055 [http-nio-8080-exec-2] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:39.057 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /
+2026-08-27 15:11:39.073 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /index.html
+2026-08-27 15:11:39.074 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /index.html
+2026-08-27 15:11:39.084 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/app.js
+2026-08-27 15:11:39.084 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/app.css
+2026-08-27 15:11:39.085 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:39.085 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:39.093 [http-nio-8080-exec-1] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:39.094 [http-nio-8080-exec-4] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:39.095 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/app.css
+2026-08-27 15:11:39.095 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/app.js
+2026-08-27 15:11:40.390 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /sign.html
+2026-08-27 15:11:40.391 [http-nio-8080-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:40.391 [http-nio-8080-exec-6] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:40.392 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /sign.html
+2026-08-27 15:11:40.401 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/app.css
+2026-08-27 15:11:40.401 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/app.js
+2026-08-27 15:11:40.401 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/sign.js?v=7
+2026-08-27 15:11:40.403 [http-nio-8080-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:40.403 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:40.403 [http-nio-8080-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:40.403 [http-nio-8080-exec-8] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:40.403 [http-nio-8080-exec-5] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:40.403 [http-nio-8080-exec-7] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:40.404 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/sign.js?v=7
+2026-08-27 15:11:40.404 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/app.js
+2026-08-27 15:11:40.404 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/app.css
+2026-08-27 15:11:45.237 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/request
+2026-08-27 15:11:45.243 [http-nio-8080-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:45.243 [http-nio-8080-exec-10] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:45.245 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/request
+2026-08-27 15:11:45.249 [http-nio-8080-exec-10] INFO  i.g.c.e.controller.EsignController - Received eSign request from IP: 0:0:0:0:0:0:0:1
+2026-08-27 15:11:45.483 [http-nio-8080-exec-10] INFO  i.g.c.e.s.impl.EsignServiceImpl - Processing eSign request txn: TXN-MTBC2NPS asp: ASP001
+2026-08-27 15:11:46.572 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/status
+2026-08-27 15:11:46.573 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:46.573 [http-nio-8080-exec-3] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:46.574 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/status
+2026-08-27 15:11:46.576 [http-nio-8080-exec-3] INFO  i.g.c.e.controller.EsignController - Received eSign status check from IP: 0:0:0:0:0:0:0:1
+2026-08-27 15:11:46.579 [http-nio-8080-exec-3] INFO  i.g.c.e.s.impl.EsignServiceImpl - Checking signing status txn: TXN-MTBC2NPS
+2026-08-27 15:11:47.074 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /auth.html?txn=TXN-MTBC2NPS
+2026-08-27 15:11:47.075 [http-nio-8080-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:47.075 [http-nio-8080-exec-9] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:47.076 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /auth.html?txn=TXN-MTBC2NPS
+2026-08-27 15:11:47.085 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/app.js
+2026-08-27 15:11:47.085 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/app.css
+2026-08-27 15:11:47.085 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/auth.js?v=1
+2026-08-27 15:11:47.086 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:47.086 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:47.086 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:47.086 [http-nio-8080-exec-2] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:47.086 [http-nio-8080-exec-1] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:47.087 [http-nio-8080-exec-4] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:47.087 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/app.css
+2026-08-27 15:11:47.087 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/app.js
+2026-08-27 15:11:47.088 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/auth.js?v=1
+2026-08-27 15:11:47.099 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/dev/transactions/TXN-MTBC2NPS
+2026-08-27 15:11:47.101 [http-nio-8080-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:47.101 [http-nio-8080-exec-6] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:47.101 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/dev/transactions/TXN-MTBC2NPS
+2026-08-27 15:11:49.188 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/dev/send-otp?username=demosigner&txn=TXN-MTBC2NPS
+2026-08-27 15:11:49.188 [http-nio-8080-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:49.189 [http-nio-8080-exec-7] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:49.190 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/dev/send-otp?username=demosigner&txn=TXN-MTBC2NPS
+2026-08-27 15:11:49.196 [http-nio-8080-exec-7] INFO  i.g.c.e.service.impl.OtpServiceImpl - SMS OTP dispatched for user: demosigner txn: TXN-MTBC2NPS (masked: 8****)
+2026-08-27 15:11:49.196 [http-nio-8080-exec-7] WARN  i.g.c.e.controller.DevTestController - [DEV] OTP exposed over unsecured dev endpoint for user demosigner
+2026-08-27 15:11:54.105 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/dev/auth-and-sign
+2026-08-27 15:11:54.105 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:54.105 [http-nio-8080-exec-5] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:54.105 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/dev/auth-and-sign
+2026-08-27 15:11:54.220 [http-nio-8080-exec-5] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM signing flow for signer='demosigner': step 1 — request certificate from CM
+2026-08-27 15:11:54.586 [http-nio-8080-exec-5] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM issued certificate id=43 for signer='demosigner'
+2026-08-27 15:11:54.728 [http-nio-8080-exec-5] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM fetched private key for certificate id=43
+2026-08-27 15:11:54.856 [http-nio-8080-exec-5] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM chain for cert id=43: 2 certificate(s)
+2026-08-27 15:11:54.973 [http-nio-8080-exec-5] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM signing complete for signer='demosigner': cert id=43, algorithm=SHA256withRSA
+2026-08-27 15:11:55.497 [http-nio-8080-exec-5] INFO  i.g.c.e.s.impl.TimestampServiceImpl - TSA timestamp embedded from http://timestamp.digicert.com
+2026-08-27 15:11:55.502 [http-nio-8080-exec-5] INFO  i.g.c.e.service.EsignSigningService - Transaction TXN-MTBC2NPS signed via CM — 1 document(s)
+2026-08-27 15:11:56.929 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /sign.html?lookup=TXN-MTBC2NPS
+2026-08-27 15:11:56.930 [http-nio-8080-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:56.931 [http-nio-8080-exec-8] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:56.931 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /sign.html?lookup=TXN-MTBC2NPS
+2026-08-27 15:11:56.939 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/app.css
+2026-08-27 15:11:56.939 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/sign.js?v=7
+2026-08-27 15:11:56.939 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/app.js
+2026-08-27 15:11:56.939 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:56.939 [http-nio-8080-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:56.943 [http-nio-8080-exec-3] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:56.943 [http-nio-8080-exec-10] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:56.939 [http-nio-8080-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:56.943 [http-nio-8080-exec-9] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:56.943 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/app.css
+2026-08-27 15:11:56.943 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/app.js
+2026-08-27 15:11:56.943 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/sign.js?v=7
+2026-08-27 15:11:56.958 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/dev/transactions/TXN-MTBC2NPS
+2026-08-27 15:11:56.959 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:56.959 [http-nio-8080-exec-2] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:56.959 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/dev/transactions/TXN-MTBC2NPS
+2026-08-27 15:11:56.969 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/dev/transactions/TXN-MTBC2NPS
+2026-08-27 15:11:56.970 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:11:56.970 [http-nio-8080-exec-1] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:11:56.970 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/dev/transactions/TXN-MTBC2NPS
+2026-08-27 15:20:59.397 [main] INFO  in.gov.cca.esign.EsignApplication - Starting EsignApplication v3.3.0 using Java 21.0.11 with PID 31384 (D:\Projects\esign\target\esign-api-3.3.0.jar started by vijay in D:\Projects\esign)
+2026-08-27 15:20:59.397 [main] DEBUG in.gov.cca.esign.EsignApplication - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-08-27 15:20:59.397 [main] INFO  in.gov.cca.esign.EsignApplication - The following 1 profile is active: "dev"
+2026-08-27 15:21:00.525 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-08-27 15:21:00.525 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-27 15:21:00.718 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 183 ms. Found 8 JPA repository interfaces.
+2026-08-27 15:21:03.540 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-08-27 15:21:03.569 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-08-27 15:21:03.570 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-08-27 15:21:03.655 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-08-27 15:21:03.656 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4166 ms
+2026-08-27 15:21:04.082 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-08-27 15:21:04.603 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./data/esign user=SA
+2026-08-27 15:21:04.619 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-08-27 15:21:04.636 [main] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./data/esign'
+2026-08-27 15:21:05.389 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-08-27 15:21:05.672 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-08-27 15:21:05.825 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-08-27 15:21:06.322 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-27 15:21:06.387 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-08-27 15:21:09.505 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-27 15:21:09.608 [main] WARN  o.h.t.s.i.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Error executing DDL "
+    create index idx_status 
+       on esign_transactions (status)" via JDBC [Index "IDX_STATUS" already exists;]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    create index idx_status 
+       on esign_transactions (status)" via JDBC [Index "IDX_STATUS" already exists;]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:574)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:514)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applyIndexes(AbstractSchemaMigrator.java:360)
+	at org.hibernate.tool.schema.internal.GroupedSchemaMigratorImpl.performTablesMigration(GroupedSchemaMigratorImpl.java:96)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:232)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:117)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:286)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:315)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1507)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1833)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1234)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:952)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
+	at in.gov.cca.esign.EsignApplication.main(EsignApplication.java:20)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:91)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:53)
+	at org.springframework.boot.loader.launch.JarLauncher.main(JarLauncher.java:58)
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: Index "IDX_STATUS" already exists; SQL statement:
+
+    create index idx_status 
+       on esign_transactions (s [42111-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.ddl.CreateIndex.update(CreateIndex.java:76)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:169)
+	at org.h2.command.Command.executeUpdate(Command.java:256)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	... 43 common frames omitted
+2026-08-27 15:21:09.637 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-27 15:21:10.232 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-08-27 15:21:14.451 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-27 15:21:14.528 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 9179f36c-7b6b-44e8-afef-544f27bbddff
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-08-27 15:21:14.822 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-08-27 15:21:15.474 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 5 endpoint(s) beneath base path '/actuator'
+2026-08-27 15:21:15.653 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@110be378, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4ab56032, org.springframework.security.web.context.SecurityContextHolderFilter@e840be5, org.springframework.security.web.header.HeaderWriterFilter@87c6dda, org.springframework.web.filter.CorsFilter@66c162a5, org.springframework.security.web.authentication.logout.LogoutFilter@594bedf5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@e8ebd3c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@260754f6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4f0aa08b, org.springframework.security.web.session.SessionManagementFilter@6870028, org.springframework.security.web.access.ExceptionTranslationFilter@2542240d, org.springframework.security.web.access.intercept.AuthorizationFilter@28627a48]
+2026-08-27 15:21:16.902 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-08-27 15:21:16.927 [main] INFO  in.gov.cca.esign.EsignApplication - Started EsignApplication in 18.037 seconds (process running for 18.682)
+2026-08-27 15:21:17.160 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-27 15:21:17.160 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-08-27 15:21:17.160 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2026-08-27 15:21:17.254 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 15:21:17.300 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:21:17.310 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 15:21:17.718 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/sign.js
+2026-08-27 15:21:17.720 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:21:17.724 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/sign.js
+2026-08-27 15:22:22.489 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/sign.js
+2026-08-27 15:22:22.492 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:22:22.494 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/sign.js
+2026-08-27 15:34:36.265 [main] INFO  in.gov.cca.esign.EsignApplication - Starting EsignApplication v3.3.0 using Java 21.0.11 with PID 37068 (D:\Projects\esign\target\esign-api-3.3.0.jar started by vijay in D:\Projects\esign)
+2026-08-27 15:34:36.267 [main] DEBUG in.gov.cca.esign.EsignApplication - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-08-27 15:34:36.267 [main] INFO  in.gov.cca.esign.EsignApplication - The following 1 profile is active: "dev"
+2026-08-27 15:34:37.269 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-08-27 15:34:37.269 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-27 15:34:37.410 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 120 ms. Found 8 JPA repository interfaces.
+2026-08-27 15:34:39.269 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-08-27 15:34:39.285 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-08-27 15:34:39.285 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-08-27 15:34:39.345 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-08-27 15:34:39.345 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2984 ms
+2026-08-27 15:34:39.793 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-08-27 15:34:40.322 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./data/esign user=SA
+2026-08-27 15:34:40.322 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-08-27 15:34:40.331 [main] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./data/esign'
+2026-08-27 15:34:40.822 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-08-27 15:34:40.950 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-08-27 15:34:40.994 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-08-27 15:34:41.204 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-27 15:34:41.235 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-08-27 15:34:42.435 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-27 15:34:42.516 [main] WARN  o.h.t.s.i.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Error executing DDL "
+    create index idx_status 
+       on esign_transactions (status)" via JDBC [Index "IDX_STATUS" already exists;]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    create index idx_status 
+       on esign_transactions (status)" via JDBC [Index "IDX_STATUS" already exists;]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:574)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:514)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applyIndexes(AbstractSchemaMigrator.java:360)
+	at org.hibernate.tool.schema.internal.GroupedSchemaMigratorImpl.performTablesMigration(GroupedSchemaMigratorImpl.java:96)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:232)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:117)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:286)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:315)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1507)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1833)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1234)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:952)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
+	at in.gov.cca.esign.EsignApplication.main(EsignApplication.java:20)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:91)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:53)
+	at org.springframework.boot.loader.launch.JarLauncher.main(JarLauncher.java:58)
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: Index "IDX_STATUS" already exists; SQL statement:
+
+    create index idx_status 
+       on esign_transactions (s [42111-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.ddl.CreateIndex.update(CreateIndex.java:76)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:169)
+	at org.h2.command.Command.executeUpdate(Command.java:256)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	... 43 common frames omitted
+2026-08-27 15:34:42.542 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-27 15:34:43.050 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-08-27 15:34:47.583 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-27 15:34:47.671 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 005f1ef5-eb52-4909-a637-37598ccaa1c5
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-08-27 15:34:47.954 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-08-27 15:34:48.571 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 5 endpoint(s) beneath base path '/actuator'
+2026-08-27 15:34:48.753 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@74df55b2, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6796ec2b, org.springframework.security.web.context.SecurityContextHolderFilter@28c0942f, org.springframework.security.web.header.HeaderWriterFilter@52760b04, org.springframework.web.filter.CorsFilter@713b2ee9, org.springframework.security.web.authentication.logout.LogoutFilter@7a9bdca, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3c0a6460, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@765569a4, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2472d568, org.springframework.security.web.session.SessionManagementFilter@50357562, org.springframework.security.web.access.ExceptionTranslationFilter@5f7a7699, org.springframework.security.web.access.intercept.AuthorizationFilter@4fbfc86f]
+2026-08-27 15:34:49.484 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-08-27 15:34:49.503 [main] INFO  in.gov.cca.esign.EsignApplication - Started EsignApplication in 13.75 seconds (process running for 14.413)
+2026-08-27 15:34:49.793 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-27 15:34:49.793 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-08-27 15:34:49.793 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2026-08-27 15:34:49.817 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-27 15:34:49.817 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:34:49.835 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-27 15:35:43.168 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/request
+2026-08-27 15:35:43.169 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:35:43.172 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/request
+2026-08-27 15:35:43.176 [http-nio-8080-exec-3] INFO  i.g.c.e.controller.EsignController - Received eSign request from IP: 0:0:0:0:0:0:0:1
+2026-08-27 15:35:43.340 [http-nio-8080-exec-3] INFO  i.g.c.e.s.impl.EsignServiceImpl - Processing eSign request txn: TXN-HASH-1787825143 asp: ASP001
+2026-08-27 15:35:43.438 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/dev/send-otp?username=demosigner&txn=TXN-HASH-1787825143
+2026-08-27 15:35:43.438 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:35:43.438 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/dev/send-otp?username=demosigner&txn=TXN-HASH-1787825143
+2026-08-27 15:35:43.455 [http-nio-8080-exec-4] INFO  i.g.c.e.service.impl.OtpServiceImpl - SMS OTP dispatched for user: demosigner txn: TXN-HASH-1787825143 (masked: 6****)
+2026-08-27 15:35:43.455 [http-nio-8080-exec-4] WARN  i.g.c.e.controller.DevTestController - [DEV] OTP exposed over unsecured dev endpoint for user demosigner
+2026-08-27 15:35:43.567 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/dev/auth-and-sign
+2026-08-27 15:35:43.570 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:35:43.572 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/dev/auth-and-sign
+2026-08-27 15:35:43.735 [http-nio-8080-exec-5] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM signing flow for signer='demosigner': step 1 — request certificate from CM
+2026-08-27 15:35:44.007 [http-nio-8080-exec-5] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM issued certificate id=44 for signer='demosigner'
+2026-08-27 15:35:44.113 [http-nio-8080-exec-5] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM fetched private key for certificate id=44
+2026-08-27 15:35:44.222 [http-nio-8080-exec-5] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM chain for cert id=44: 2 certificate(s)
+2026-08-27 15:35:44.396 [http-nio-8080-exec-5] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM signing complete for signer='demosigner': cert id=44, algorithm=SHA256withRSA
+2026-08-27 15:35:44.953 [http-nio-8080-exec-5] INFO  i.g.c.e.s.impl.TimestampServiceImpl - TSA timestamp embedded from http://timestamp.digicert.com
+2026-08-27 15:35:44.953 [http-nio-8080-exec-5] INFO  i.g.c.e.service.EsignSigningService - Transaction TXN-HASH-1787825143 signed via CM — 1 document(s)
+2026-08-27 15:44:11.531 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /
+2026-08-27 15:44:11.534 [http-nio-8080-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:11.534 [http-nio-8080-exec-8] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:11.535 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /
+2026-08-27 15:44:11.555 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /index.html
+2026-08-27 15:44:11.556 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /index.html
+2026-08-27 15:44:11.562 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/app.css
+2026-08-27 15:44:11.567 [http-nio-8080-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:11.567 [http-nio-8080-exec-9] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:11.567 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/app.js
+2026-08-27 15:44:11.567 [http-nio-8080-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:11.567 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/app.css
+2026-08-27 15:44:11.567 [http-nio-8080-exec-10] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:11.569 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/app.js
+2026-08-27 15:44:12.855 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /
+2026-08-27 15:44:12.855 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:12.855 [http-nio-8080-exec-1] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:12.869 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /
+2026-08-27 15:44:12.872 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /index.html
+2026-08-27 15:44:12.873 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /index.html
+2026-08-27 15:44:12.880 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/app.css
+2026-08-27 15:44:12.880 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/app.js
+2026-08-27 15:44:12.880 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:12.880 [http-nio-8080-exec-2] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:12.880 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/app.css
+2026-08-27 15:44:12.880 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:12.880 [http-nio-8080-exec-3] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:12.880 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/app.js
+2026-08-27 15:44:13.520 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /
+2026-08-27 15:44:13.535 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:13.535 [http-nio-8080-exec-4] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:13.537 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /
+2026-08-27 15:44:13.537 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /index.html
+2026-08-27 15:44:13.537 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /index.html
+2026-08-27 15:44:13.546 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/app.css
+2026-08-27 15:44:13.546 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/app.js
+2026-08-27 15:44:13.546 [http-nio-8080-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:13.546 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:13.546 [http-nio-8080-exec-6] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:13.546 [http-nio-8080-exec-5] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:13.546 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/app.js
+2026-08-27 15:44:13.546 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/app.css
+2026-08-27 15:44:13.687 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /
+2026-08-27 15:44:13.688 [http-nio-8080-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:13.689 [http-nio-8080-exec-7] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:13.689 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /
+2026-08-27 15:44:13.691 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /index.html
+2026-08-27 15:44:13.692 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /index.html
+2026-08-27 15:44:13.700 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/app.css
+2026-08-27 15:44:13.700 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/app.js
+2026-08-27 15:44:13.700 [http-nio-8080-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:13.702 [http-nio-8080-exec-8] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:13.702 [http-nio-8080-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:13.702 [http-nio-8080-exec-9] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:13.703 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/app.js
+2026-08-27 15:44:13.703 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/app.css
+2026-08-27 15:44:13.828 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /
+2026-08-27 15:44:13.835 [http-nio-8080-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:13.836 [http-nio-8080-exec-10] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:13.836 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /
+2026-08-27 15:44:13.837 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /index.html
+2026-08-27 15:44:13.837 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /index.html
+2026-08-27 15:44:13.837 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/app.js
+2026-08-27 15:44:13.837 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/app.css
+2026-08-27 15:44:13.837 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:13.837 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:13.837 [http-nio-8080-exec-1] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:13.837 [http-nio-8080-exec-3] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:13.837 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/app.js
+2026-08-27 15:44:13.837 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/app.css
+2026-08-27 15:44:15.314 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /sign.html
+2026-08-27 15:44:15.315 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:15.315 [http-nio-8080-exec-2] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:15.316 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /sign.html
+2026-08-27 15:44:15.325 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/app.css
+2026-08-27 15:44:15.325 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/app.js
+2026-08-27 15:44:15.326 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/sign.js?v=7
+2026-08-27 15:44:15.326 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:15.326 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:15.326 [http-nio-8080-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:15.327 [http-nio-8080-exec-5] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:15.327 [http-nio-8080-exec-4] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:15.327 [http-nio-8080-exec-6] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:15.327 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/app.js
+2026-08-27 15:44:15.327 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/app.css
+2026-08-27 15:44:15.327 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/sign.js?v=7
+2026-08-27 15:44:20.960 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/request
+2026-08-27 15:44:20.960 [http-nio-8080-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:20.960 [http-nio-8080-exec-7] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:20.960 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/request
+2026-08-27 15:44:20.960 [http-nio-8080-exec-7] INFO  i.g.c.e.controller.EsignController - Received eSign request from IP: 0:0:0:0:0:0:0:1
+2026-08-27 15:44:20.960 [http-nio-8080-exec-7] INFO  i.g.c.e.s.impl.EsignServiceImpl - Processing eSign request txn: TXN-MTBD8KRH asp: ASP001
+2026-08-27 15:44:21.990 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/status
+2026-08-27 15:44:21.990 [http-nio-8080-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:21.991 [http-nio-8080-exec-8] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:21.991 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/status
+2026-08-27 15:44:21.992 [http-nio-8080-exec-8] INFO  i.g.c.e.controller.EsignController - Received eSign status check from IP: 0:0:0:0:0:0:0:1
+2026-08-27 15:44:21.996 [http-nio-8080-exec-8] INFO  i.g.c.e.s.impl.EsignServiceImpl - Checking signing status txn: TXN-MTBD8KRH
+2026-08-27 15:44:22.848 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /auth.html?txn=TXN-MTBD8KRH
+2026-08-27 15:44:22.849 [http-nio-8080-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:22.849 [http-nio-8080-exec-9] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:22.849 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /auth.html?txn=TXN-MTBD8KRH
+2026-08-27 15:44:22.858 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/auth.js?v=1
+2026-08-27 15:44:22.858 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/app.js
+2026-08-27 15:44:22.858 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/app.css
+2026-08-27 15:44:22.858 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:22.858 [http-nio-8080-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:22.858 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:22.858 [http-nio-8080-exec-1] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:22.858 [http-nio-8080-exec-10] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:22.858 [http-nio-8080-exec-3] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:22.860 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/auth.js?v=1
+2026-08-27 15:44:22.860 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/app.css
+2026-08-27 15:44:22.860 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/app.js
+2026-08-27 15:44:22.873 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/dev/transactions/TXN-MTBD8KRH
+2026-08-27 15:44:22.874 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:22.874 [http-nio-8080-exec-2] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:22.875 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/dev/transactions/TXN-MTBD8KRH
+2026-08-27 15:44:24.775 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/dev/send-otp?username=demosigner&txn=TXN-MTBD8KRH
+2026-08-27 15:44:24.776 [http-nio-8080-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:24.776 [http-nio-8080-exec-7] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:24.778 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/dev/send-otp?username=demosigner&txn=TXN-MTBD8KRH
+2026-08-27 15:44:24.783 [http-nio-8080-exec-7] INFO  i.g.c.e.service.impl.OtpServiceImpl - SMS OTP dispatched for user: demosigner txn: TXN-MTBD8KRH (masked: 1****)
+2026-08-27 15:44:24.783 [http-nio-8080-exec-7] WARN  i.g.c.e.controller.DevTestController - [DEV] OTP exposed over unsecured dev endpoint for user demosigner
+2026-08-27 15:44:30.205 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/dev/auth-and-sign
+2026-08-27 15:44:30.206 [http-nio-8080-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:30.207 [http-nio-8080-exec-8] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:30.207 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/dev/auth-and-sign
+2026-08-27 15:44:30.321 [http-nio-8080-exec-8] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM signing flow for signer='demosigner': step 1 — request certificate from CM
+2026-08-27 15:44:30.646 [http-nio-8080-exec-8] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM issued certificate id=45 for signer='demosigner'
+2026-08-27 15:44:30.753 [http-nio-8080-exec-8] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM fetched private key for certificate id=45
+2026-08-27 15:44:30.883 [http-nio-8080-exec-8] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM chain for cert id=45: 2 certificate(s)
+2026-08-27 15:44:30.904 [http-nio-8080-exec-8] INFO  i.g.c.e.s.i.CertificateServiceImpl - CM signing complete for signer='demosigner': cert id=45, algorithm=SHA256withRSA
+2026-08-27 15:44:31.390 [http-nio-8080-exec-8] INFO  i.g.c.e.s.impl.TimestampServiceImpl - TSA timestamp embedded from http://timestamp.digicert.com
+2026-08-27 15:44:31.390 [http-nio-8080-exec-8] INFO  i.g.c.e.service.EsignSigningService - Transaction TXN-MTBD8KRH signed via CM — 1 document(s)
+2026-08-27 15:44:32.523 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /sign.html?lookup=TXN-MTBD8KRH
+2026-08-27 15:44:32.525 [http-nio-8080-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:32.525 [http-nio-8080-exec-9] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:32.526 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /sign.html?lookup=TXN-MTBD8KRH
+2026-08-27 15:44:32.535 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/app.css
+2026-08-27 15:44:32.536 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/sign.js?v=7
+2026-08-27 15:44:32.536 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:32.536 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/app.js
+2026-08-27 15:44:32.536 [http-nio-8080-exec-1] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:32.536 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:32.537 [http-nio-8080-exec-3] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:32.537 [http-nio-8080-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:32.537 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/app.css
+2026-08-27 15:44:32.537 [http-nio-8080-exec-10] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:32.537 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/app.js
+2026-08-27 15:44:32.538 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/sign.js?v=7
+2026-08-27 15:44:32.551 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/dev/transactions/TXN-MTBD8KRH
+2026-08-27 15:44:32.552 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:32.552 [http-nio-8080-exec-2] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:32.552 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/dev/transactions/TXN-MTBD8KRH
+2026-08-27 15:44:32.561 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/dev/transactions/TXN-MTBD8KRH
+2026-08-27 15:44:32.562 [http-nio-8080-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:44:32.562 [http-nio-8080-exec-6] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id D79AB8FF67A7210F90F88AA12B68EE5F
+2026-08-27 15:44:32.562 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/dev/transactions/TXN-MTBD8KRH
+2026-08-27 15:59:36.320 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /
+2026-08-27 15:59:36.321 [http-nio-8080-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:59:36.323 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /
+2026-08-27 15:59:36.326 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /index.html
+2026-08-27 15:59:36.327 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /index.html
+2026-08-27 15:59:36.339 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/app.css
+2026-08-27 15:59:36.339 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/app.js
+2026-08-27 15:59:36.340 [http-nio-8080-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:59:36.341 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-27 15:59:36.341 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/app.js
+2026-08-27 15:59:36.341 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/app.css

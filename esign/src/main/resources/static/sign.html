@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASP — PDF Signing | CCA eSign Flow</title>
+    <link rel="stylesheet" href="/css/app.css">
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+</head>
+<body>
+<header>
+    <h1>eSign API <span>v3.3</span> Test Console</h1>
+    <nav>
+        <a href="/">Endpoints</a>
+        <a href="/esign.html">ASP: eSign XML</a>
+        <a href="/sign.html" class="active">ASP: PDF Sign</a>
+        <a href="/auth.html">ESP: Auth</a>
+        <a href="/ekyc.html">ESP: eKYC</a>
+        <a href="/asp.html">ESP: ASP Registry</a>
+        <a href="/logs.html">ESP: Audit Logs</a>
+        <a href="/swagger-ui.html" target="_blank" rel="noopener">Swagger UI &#8599;</a>
+    </nav>
+</header>
+
+<main>
+    <!-- Check status of existing transaction -->
+    <details class="card" id="statusCard">
+        <summary><span class="method m-get">STATUS</span> Check Existing Transaction
+            <span class="endpoint-path">— look up a previous eSign request and download signed PDF</span></summary>
+        <div class="card-body" style="max-width:900px">
+            <div class="grid" style="grid-template-columns:1fr auto; gap:10px; align-items:end; margin-bottom:14px">
+                <div class="field"><label>Transaction ID</label>
+                    <input id="lookupTxn" placeholder="e.g. TXN-639233168581465331" /></div>
+                <button id="lookupBtn" style="height:38px">Check Status</button>
+            </div>
+
+            <div id="lookupResult" style="display:none"></div>
+
+            <!-- Show after status is COMPLETED — user picks PDF to embed signature -->
+            <div id="embedSection" style="display:none; margin-top:14px">
+                <div class="section-label">Embed Signature into PDF</div>
+                <p style="font-size:.88rem; color:#556; margin:0 0 10px">
+                    Select the <strong>same PDF</strong> that was originally submitted for signing.
+                    The CMS signature from the completed transaction will be embedded client-side.
+                </p>
+                <div class="field" style="margin-bottom:14px">
+                    <label>Select original PDF</label>
+                    <input type="file" id="embedFileInput" accept=".pdf,application/pdf" />
+                </div>
+                <button id="embedBtn" disabled>Embed Signature → Download Signed PDF</button>
+                <div id="embedProgress" style="margin-top:12px"></div>
+            </div>
+        </div>
+    </details>
+
+    <!-- Step 1: Upload & configure -->
+    <details class="card" open>
+        <summary><span class="method m-post">STEP 1</span> Upload PDF &amp; Configure
+            <span class="endpoint-path">— ASP creates document hash, submits eSign request</span></summary>
+        <div class="card-body" style="max-width:900px">
+            <p style="font-size:.92rem; color:#556; margin:0 0 14px">
+                The PDF <strong>never leaves your browser</strong>. Only its SHA-256 hash is sent
+                to the eSign service. After the eSign user authenticates, the CMS signature is
+                embedded back into the PDF client-side via
+                <a href="https://pdf-lib.js.org" target="_blank" rel="noopener">pdf-lib</a>.
+            </p>
+
+            <div class="field" style="margin-bottom:14px">
+                <label>1. Select PDF to sign</label>
+                <input type="file" id="fileInput" accept=".pdf,application/pdf" />
+            </div>
+
+            <div class="grid" style="grid-template-columns:1fr 1fr 1fr; margin-bottom:14px">
+                <div class="field"><label>aspId</label>
+                    <input id="aspId" value="ASP001" /></div>
+                <div class="field"><label>signerId (eSign user)</label>
+                    <input id="signerId" value="demosigner" /></div>
+                <div class="field"><label>signingAlgorithm</label>
+                    <select id="signingAlgorithm">
+                        <option value="RSA" selected>RSA</option>
+                        <option value="ECDSA">ECDSA</option>
+                    </select></div>
+            </div>
+
+            <div class="field" style="margin-bottom:14px">
+                <label>docInfo (max 50 chars)</label>
+                <input id="docInfo" value="SignedByDemo.pdf" maxlength="50" />
+            </div>
+
+            <button id="submitBtn" disabled>Submit eSign Request → Redirect to Auth</button>
+            <div id="progress" style="margin-top:14px"></div>
+        </div>
+    </details>
+
+    <!-- Step 2: Request / Response -->
+    <div class="card" id="step2Card" style="display:none">
+        <div class="card-head">STEP 2 — Request Sent, Awaiting Authentication</div>
+        <div class="card-body">
+            <div id="authRedirect" style="margin-bottom:14px"></div>
+            <div class="grid" style="grid-template-columns:1fr 1fr; gap:14px">
+                <div>
+                    <h3 style="margin:0 0 6px">Request XML</h3>
+                    <pre id="reqXml" class="code-block"></pre>
+                </div>
+                <div>
+                    <h3 style="margin:0 0 6px">Response XML</h3>
+                    <pre id="respXml" class="code-block"></pre>
+                </div>
+            </div>
+            <div class="grid" style="grid-template-columns:1fr 1fr; gap:14px; margin-top:14px">
+                <div>
+                    <h3 style="margin:0 0 6px">SHA-256 Hash (Base64)</h3>
+                    <pre id="hashValue" class="code-block" style="font-size:.82rem; word-break:break-all"></pre>
+                </div>
+                <div>
+                    <h3 style="margin:0 0 6px">CMS Signature (after auth)</h3>
+                    <pre id="sigValue" class="code-block" style="font-size:.82rem; word-break:break-all"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 3: Poll / download -->
+    <div class="card" id="step3Card" style="display:none">
+        <div class="card-head" style="color:var(--green)">STEP 3 — Signing Complete</div>
+        <div class="card-body">
+            <div id="completedDetails"></div>
+            <div style="margin-top:14px">
+                <button id="downloadPdfBtn">Download Signed PDF</button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="/js/app.js"></script>
+<script src="/js/sign.js?v=7"></script>
+</body>
+</html>

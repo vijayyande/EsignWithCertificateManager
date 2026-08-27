@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP — eKYC</title>
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+<header>
+    <h1>eSign API <span>v3.3</span> Test Console</h1>
+    <nav>
+        <a href="/">Endpoints</a>
+        <a href="/esign.html">ASP: eSign XML</a>
+        <a href="/sign.html">ASP: PDF Sign</a>
+        <a href="/auth.html">ESP: Auth</a>
+        <a href="/ekyc.html" class="active">ESP: eKYC</a>
+        <a href="/asp.html">ESP: ASP Registry</a>
+        <a href="/logs.html">ESP: Audit Logs</a>
+        <a href="/swagger-ui.html" target="_blank" rel="noopener">Swagger UI &#8599;</a>
+    </nav>
+</header>
+
+<main>
+    <!-- Create user -->
+    <details class="card" open>
+        <summary><span class="method m-post">POST</span> /esign/dev/users
+            <span class="endpoint-path">— seed a test eKYC user (dev only)</span></summary>
+        <div class="card-body">
+            <div class="grid">
+                <div class="field"><label>username *</label><input id="cu-username" placeholder="signer@example.com"></div>
+                <div class="field"><label>PIN *</label><input id="cu-pin" type="password" placeholder="6-digit PIN"></div>
+                <div class="field"><label>name</label><input id="cu-name"></div>
+                <div class="field"><label>mobile (+91…)</label><input id="cu-mobile" placeholder="+919876543210"></div>
+                <div class="field"><label>email</label><input id="cu-email"></div>
+                <div class="field"><label>address</label><input id="cu-address"></div>
+                <div class="field"><label>stateProvince</label><input id="cu-state" placeholder="Karnataka"></div>
+                <div class="field"><label>country</label><input id="cu-country" value="IN"></div>
+                <div class="field"><label>postalCode</label><input id="cu-postal" placeholder="560001"></div>
+                <div class="field"><label>dob (yyyy-mm-dd)</label><input id="cu-dob" type="date"></div>
+                <div class="field"><label>gender (M/F/T)</label><input id="cu-gender" value="M"></div>
+                <div class="field"><label>pan</label><input id="cu-pan"></div>
+                <div class="field"><label>aadhaarLast4</label><input id="cu-aadhaar" maxlength="4"></div>
+                <div class="field"><label>eKYC type</label>
+                    <select id="cu-ekyctype">
+                        <option>OFFLINE_AADHAAR</option>
+                        <option>BANK</option>
+                        <option>ORGANISATIONAL</option>
+                        <option>PAN</option>
+                        <option>FOREIGN_NATIONAL</option>
+                    </select></div>
+            </div>
+            <div class="row-actions">
+                <button id="createUserBtn">Create user</button>
+            </div>
+            <div class="result-block" id="cuResult"></div>
+
+            <div class="section-label">Lookup existing user</div>
+            <div class="grid">
+                <div class="field"><label>username</label><input id="gu-username"></div>
+            </div>
+            <div class="row-actions">
+                <button class="secondary small" id="getUserBtn">GET /esign/dev/users/{username}</button>
+            </div>
+            <div class="result-block" id="guResult"></div>
+        </div>
+    </details>
+
+    <!-- PIN hash helper -->
+    <details class="card" open>
+        <summary><span class="method m-get">GET</span> /esign/dev/pin-hash
+            <span class="endpoint-path">— compute the pinhash for /ekyc/auth</span></summary>
+        <div class="card-body">
+            <p class="hint">Computes pinhash = SHA256(txn + stored PBKDF2 hash) exactly as the service expects,
+                verifies your PIN, and fills it into the auth form below.</p>
+            <div class="grid">
+                <div class="field"><label>username</label><input id="ph-username"></div>
+                <div class="field"><label>PIN</label><input id="ph-pin" type="password"></div>
+                <div class="field"><label>txn (defaults to auth txn)</label><input id="ph-txn"></div>
+            </div>
+            <div class="row-actions">
+                <button id="computePinHash">Compute &amp; use in Auth form</button>
+            </div>
+            <div class="result-block" id="phResult"></div>
+        </div>
+    </details>
+
+    <!-- eKYC Auth -->
+    <details class="card" open>
+        <summary><span class="method m-post">POST</span> /ekyc/auth
+            <span class="endpoint-path">— authenticate with PIN (+ optional composite second factor)</span></summary>
+        <div class="card-body">
+            <div class="grid">
+                <div class="field"><label>ver</label><input id="au-ver"></div>
+                <div class="field"><label>ts (IST)</label><input id="au-ts"></div>
+                <div class="field"><label>txn</label><input id="au-txn"></div>
+                <div class="field"><label>signerid (username)</label><input id="au-signerid"></div>
+                <div class="field wide"><label>pinhash</label><input id="au-pinhash" placeholder="from the PIN hash helper above"></div>
+            </div>
+
+            <div class="checkbox-line">
+                <input type="checkbox" id="toggleSecondFactor">
+                <label for="toggleSecondFactor">Include second factor in same request (composite mode)</label>
+            </div>
+
+            <div class="subcard" id="authSecondFactorSub">
+                <div class="grid">
+                    <div class="field"><label>authenticationType</label>
+                        <select id="sf-type">
+                            <option>SMSOTP</option><option>TOTP</option><option>MAT</option>
+                            <option>FIDO</option><option>PUBSIGN</option>
+                        </select></div>
+                    <div class="field" data-for="SMSOTP"><label>SMS OTP code</label><input id="sf-smsotp"></div>
+                    <div class="field" data-for="TOTP"><label>TOTP code</label><input id="sf-totp"></div>
+                    <div class="field" data-for="MAT"><label>MAT response</label><input id="sf-mat"></div>
+                    <div class="field wide" data-for="FIDO"><label>FIDO assertion (base64)</label><textarea id="sf-fido"></textarea></div>
+                    <div class="field wide" data-for="PUBSIGN"><label>PUBSIGN signature (base64)</label><textarea id="sf-pubsign"></textarea></div>
+                </div>
+                <div class="section-label">Embedded second-factor XML (base64-wrapped)</div>
+                <pre class="xml" id="sfInnerPreview">(generated on send)</pre>
+            </div>
+
+            <div class="section-label">Request XML preview</div>
+            <pre class="xml" id="auPreviewBlock">(generated on send)</pre>
+
+            <div class="row-actions">
+                <button id="sendAuth">Send POST /ekyc/auth</button>
+                <span class="hint">txn is auto-copied to the second-factor form below.</span>
+            </div>
+            <div class="result-block" id="auResult"></div>
+        </div>
+    </details>
+
+    <!-- Second factor -->
+    <details class="card" open>
+        <summary><span class="method m-post">POST</span> /ekyc/auth/second-factor
+            <span class="endpoint-path">— verify a standalone second factor</span></summary>
+        <div class="card-body">
+            <div class="grid">
+                <div class="field"><label>ver</label><input id="sf-ver"></div>
+                <div class="field"><label>ts (IST)</label><input id="sf-ts"></div>
+                <div class="field"><label>txn (from auth step)</label><input id="sf-txn"></div>
+                <div class="field"><label>signerid</label><input id="sf-signerid"></div>
+                <div class="field"><label>consent (Y/N)</label><input id="sf-consent" value="Y"></div>
+                <div class="field"><label>authenticationType</label>
+                    <select id="sf2-type">
+                        <option>SMSOTP</option><option>TOTP</option><option>MAT</option>
+                        <option>FIDO</option><option>PUBSIGN</option>
+                    </select></div>
+            </div>
+            <p class="hint">The txn from a successful /ekyc/auth attempt is pre-filled automatically.
+                Use “Send OTP” to have the server generate an SMS OTP — the dev endpoint returns the code and
+                fills it in.</p>
+
+            <div class="grid" id="sfFields">
+                <div class="field" data-for="SMSOTP">
+                    <label>SMS OTP code</label>
+                    <input id="sf-smsotp2" placeholder="6-digit code">
+                </div>
+                <div class="field" data-for="TOTP"><label>TOTP code</label><input id="sf-totp2"></div>
+                <div class="field" data-for="MAT"><label>MAT response</label><input id="sf-mat2"></div>
+                <div class="field wide" data-for="FIDO"><label>FIDO assertion</label><textarea id="sf-fido2"></textarea></div>
+                <div class="field wide" data-for="PUBSIGN"><label>PUBSIGN signature</label><textarea id="sf-pubsign2"></textarea></div>
+            </div>
+            <div class="row-actions">
+                <button class="secondary small" id="sendOtpDevBtn">Send OTP (dev: returns the code)</button>
+                <button id="sendSecondFactor">Send POST /ekyc/auth/second-factor</button>
+            </div>
+            <div class="result-block" id="sendOtpResult"></div>
+
+            <div class="section-label">Request XML preview</div>
+            <pre class="xml" id="sfPreviewBlock">(generated on send)</pre>
+            <div class="result-block" id="sfResult"></div>
+        </div>
+    </details>
+
+    <!-- Bank KYC -->
+    <details class="card">
+        <summary><span class="method m-post">POST</span> /ekyc/bank-kyc
+            <span class="endpoint-path">— bank KYC submission</span></summary>
+        <div class="card-body">
+            <div class="grid">
+                <div class="field"><label>ver</label><input id="bk-ver" value="3.3"></div>
+                <div class="field"><label>ts (IST)</label><input id="bk-ts"></div>
+                <div class="field"><label>txn (auto)</label><input id="bk-txn"></div>
+                <div class="field"><label>bankName *</label><input id="bk-bankname" placeholder="State Bank of India"></div>
+                <div class="field"><label>accountNumber *</label><input id="bk-account"></div>
+                <div class="field"><label>bankIfscCode</label><input id="bk-ifsc" placeholder="SBIN0001234"></div>
+                <div class="field"><label>name *</label><input id="bk-name"></div>
+                <div class="field"><label>mobile *</label><input id="bk-mobile"></div>
+                <div class="field"><label>email</label><input id="bk-email"></div>
+                <div class="field"><label>address *</label><input id="bk-address"></div>
+                <div class="field"><label>stateProvince *</label><input id="bk-state"></div>
+                <div class="field"><label>country *</label><input id="bk-country" value="IN"></div>
+                <div class="field"><label>postalCode *</label><input id="bk-postal"></div>
+                <div class="field"><label>dateOfBirth * (yyyy-mm-dd)</label><input id="bk-dob" type="date"></div>
+                <div class="field"><label>gender * (M/F/T)</label>
+                    <select id="bk-gender"><option>M</option><option>F</option><option>T</option></select></div>
+                <div class="field"><label>pan</label><input id="bk-pan"></div>
+                <div class="field"><label>aadhaar</label><input id="bk-aadhaar"></div>
+                <div class="field"><label>photo format</label>
+                    <select id="bk-photoformat"><option>PNG</option><option>JPEG</option></select></div>
+                <div class="field wide"><label>Photo base64 (optional — 1px PNG used if empty)</label><textarea id="bk-photo"></textarea></div>
+            </div>
+            <div class="row-actions">
+                <button id="sendBankKyc">Send POST /ekyc/bank-kyc</button>
+            </div>
+            <div class="section-label">Request XML preview</div>
+            <pre class="xml" id="bkPreviewBlock">(generated on send)</pre>
+            <div class="result-block" id="bkResult"></div>
+        </div>
+    </details>
+
+    <!-- Public key registration -->
+    <details class="card">
+        <summary><span class="method m-post">POST</span> /ekyc/public-key/register
+            <span class="endpoint-path">— register a public key for PUBSIGN/FIDO flows</span></summary>
+        <div class="card-body">
+            <div class="grid">
+                <div class="field"><label>SignerId</label><input id="pk-signerid"></div>
+                <div class="field"><label>Algorithm</label><input id="pk-algo" value="RSA2048"></div>
+                <div class="field"><label>Consent (Y/N)</label><input id="pk-consent" value="Y"></div>
+                <div class="field wide"><label>Public key (base64)</label><textarea id="pk-key"></textarea></div>
+            </div>
+            <div class="row-actions">
+                <button id="sendPubKey">Send POST /ekyc/public-key/register</button>
+            </div>
+            <div class="section-label">Request XML preview</div>
+            <pre class="xml" id="pkPreviewBlock">(generated on send)</pre>
+            <div class="result-block" id="pkResult"></div>
+        </div>
+    </details>
+</main>
+
+<script src="/js/app.js"></script>
+<script src="/js/ekyc.js"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+spring:
+  application:
+    name: esign-api-test
+  datasource:
+    url: jdbc:h2:mem:esign_test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+  flyway:
+    enabled: false
+
+esign:
+  version: "3.3"
+  esp-id: "ESP001"
+  max-documents: 5
+  timestamp-tolerance-minutes: 30
+  token-store: memory
+  signature-verification:
+    enabled: false
+  keystore:
+    path:
+    password: changeit
+    type: PKCS12
+    alias: esign-esp
+
+ekyc:
+  pin:
+    hash-algorithm: PBKDF2WithHmacSHA256
+    hash-iterations: 100000
+  otp:
+    sms:
+      length: 6
+      validity-minutes: 15
+    totp:
+      algorithm: HmacSHA256
+      digits: 6
+      period-seconds: 30
+      window: 1
+  authentication:
+    max-failed-attempts: 5
+    lockout-duration-minutes: 30
+    signature-verification:
+      enabled: false
+
+logging:
+  level:
+    in.gov.cca.esign: DEBUG

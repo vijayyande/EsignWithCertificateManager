@@ -1,0 +1,4 @@
+D:\Projects\esign\README.md
+D:\Projects\esign\docker-compose.yml
+D:\Projects\esign\src\main\resources\application.yml
+D:\Projects\esign\src\test\resources\application-test.yml

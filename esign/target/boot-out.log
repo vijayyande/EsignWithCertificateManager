@@ -1,0 +1,1260 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.5)
+
+2026-08-24 11:55:41.849 [main] INFO  in.gov.cca.esign.EsignApplication - Starting EsignApplication v3.3.0 using Java 21.0.11 with PID 26152 (D:\Projects\esign\target\esign-api-3.3.0.jar started by vijay in D:\Projects\esign)
+2026-08-24 11:55:41.852 [main] DEBUG in.gov.cca.esign.EsignApplication - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-08-24 11:55:41.852 [main] INFO  in.gov.cca.esign.EsignApplication - The following 1 profile is active: "dev"
+2026-08-24 11:55:44.143 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-08-24 11:55:44.143 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-24 11:55:44.556 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 390 ms. Found 6 JPA repository interfaces.
+2026-08-24 11:55:47.818 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-08-24 11:55:47.845 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-08-24 11:55:47.845 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-08-24 11:55:48.035 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-08-24 11:55:48.037 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5997 ms
+2026-08-24 11:55:48.507 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-08-24 11:55:49.223 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:esign user=SA
+2026-08-24 11:55:49.232 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-08-24 11:55:49.238 [main] INFO  o.s.b.a.h.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:esign'
+2026-08-24 11:55:49.856 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-08-24 11:55:50.119 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-08-24 11:55:50.232 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-08-24 11:55:51.186 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-24 11:55:51.343 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-08-24 11:55:54.446 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: 
+    drop table if exists authentication_logs cascade 
+Hibernate: 
+    drop table if exists authorised_signatories cascade 
+Hibernate: 
+    drop table if exists bank_kyc cascade 
+Hibernate: 
+    drop table if exists document_signatures cascade 
+Hibernate: 
+    drop table if exists ekyc_users cascade 
+Hibernate: 
+    drop table if exists esign_transactions cascade 
+Hibernate: 
+    drop table if exists organisations cascade 
+Hibernate: 
+    drop table if exists user_authentication_factors cascade 
+Hibernate: 
+    create table authentication_logs (
+        success boolean not null,
+        created_at timestamp(6) not null,
+        error_code varchar(10),
+        id uuid not null,
+        user_id uuid not null,
+        auth_mode varchar(20) not null check (auth_mode in ('COMPOSITE','INDEPENDENT')),
+        factor_type varchar(20) not null check (factor_type in ('SMSOTP','TOTP','MAT','FIDO2','PUBLIC_KEY')),
+        ip_address varchar(45),
+        transaction_id varchar(100),
+        error_message varchar(500),
+        user_agent varchar(500),
+        primary key (id)
+    )
+Hibernate: 
+    create table authorised_signatories (
+        created_at timestamp(6) not null,
+        updated_at timestamp(6),
+        verified_at timestamp(6),
+        id uuid not null,
+        organisation_id uuid not null,
+        status varchar(20) not null check (status in ('PENDING_VERIFICATION','ACTIVE','SUSPENDED','REVOKED')),
+        org_sig_id varchar(100) not null unique,
+        org_unit varchar(100),
+        ca_officer varchar(200),
+        cert_id varchar(200) unique,
+        name varchar(200) not null,
+        certificate TEXT,
+        primary key (id)
+    )
+Hibernate: 
+    create table bank_kyc (
+        aadhaar_last4 varchar(4),
+        country varchar(2),
+        date_of_birth date,
+        gender varchar(1),
+        created_at timestamp(6) not null,
+        processed_at timestamp(6),
+        updated_at timestamp(6),
+        error_code varchar(10),
+        photo_format varchar(10),
+        bank_ifsc_code varchar(11),
+        id uuid not null,
+        mobile varchar(20) not null,
+        pan varchar(20),
+        postal_code varchar(20),
+        status varchar(20) not null check (status in ('PENDING','VERIFIED','REJECTED','EXPIRED')),
+        account_number varchar(50) not null,
+        email varchar(100),
+        response_code varchar(100),
+        state_province varchar(100),
+        transaction_id varchar(100) not null unique,
+        bank_name varchar(200) not null,
+        name varchar(200) not null,
+        error_message varchar(500),
+        address TEXT,
+        bank_signature TEXT,
+        photo TEXT,
+        primary key (id)
+    )
+Hibernate: 
+    create table document_signatures (
+        document_id integer not null,
+        signed_at timestamp(6),
+        error_code varchar(10),
+        id uuid not null,
+        transaction_id uuid not null,
+        hash_algorithm varchar(20) not null,
+        response_sig_type varchar(20) not null,
+        doc_info varchar(100),
+        doc_url varchar(500),
+        document_hash TEXT not null,
+        signature_value TEXT,
+        primary key (id)
+    )
+Hibernate: 
+    create table ekyc_users (
+        aadhaar_last4 varchar(4),
+        country varchar(2),
+        dob date,
+        failed_attempts integer not null,
+        gender varchar(1),
+        activated_at timestamp(6),
+        created_at timestamp(6) not null,
+        deactivated_at timestamp(6),
+        last_login_at timestamp(6),
+        locked_until timestamp(6),
+        updated_at timestamp(6),
+        id uuid not null,
+        mobile varchar(20) not null unique,
+        pan varchar(20) unique,
+        postal_code varchar(20),
+        status varchar(20) not null check (status in ('PENDING_VERIFICATION','ACTIVE','SUSPENDED','DEACTIVATED','EXPIRED')),
+        ekyc_type varchar(30) not null check (ekyc_type in ('OFFLINE_AADHAAR','BANK','ORGANISATIONAL','PAN','FOREIGN_NATIONAL')),
+        email varchar(100),
+        state_province varchar(100),
+        username varchar(100) not null unique,
+        ca_officer varchar(200),
+        name varchar(200) not null,
+        address TEXT,
+        photograph TEXT,
+        pin_hash varchar(255) not null,
+        pin_salt varchar(255) not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table esign_transactions (
+        max_wait_period integer not null,
+        completed_at timestamp(6),
+        created_at timestamp(6) not null,
+        timestamp timestamp(6) not null,
+        updated_at timestamp(6),
+        error_code varchar(10),
+        version varchar(10) not null,
+        id uuid not null,
+        signing_algorithm varchar(20) not null,
+        status varchar(20) not null check (status in ('PENDING','IN_PROGRESS','COMPLETED','FAILED','EXPIRED','CANCELLED')),
+        asp_id varchar(100) not null,
+        response_code varchar(100),
+        transaction_id varchar(100) not null unique,
+        signer_id varchar(200),
+        error_message varchar(500),
+        redirect_url varchar(500),
+        response_url varchar(500) not null,
+        esp_signature TEXT,
+        request_xml TEXT,
+        response_xml TEXT,
+        user_certificate TEXT,
+        primary key (id)
+    )
+Hibernate: 
+    create table organisations (
+        created_at timestamp(6) not null,
+        updated_at timestamp(6),
+        verified_at timestamp(6),
+        id uuid not null,
+        status varchar(20) not null check (status in ('PENDING_VERIFICATION','ACTIVE','SUSPENDED','DEACTIVATED')),
+        kyc_org_id varchar(100) not null unique,
+        ca_officer varchar(200),
+        name varchar(200) not null unique,
+        address TEXT,
+        primary key (id)
+    )
+Hibernate: 
+    create table user_authentication_factors (
+        counter bigint not null,
+        created_at timestamp(6) not null,
+        expires_at timestamp(6),
+        last_used_at timestamp(6),
+        registered_at timestamp(6) not null,
+        updated_at timestamp(6),
+        id uuid not null,
+        user_id uuid not null,
+        factor_type varchar(20) not null check (factor_type in ('SMSOTP','TOTP','MAT','FIDO2','PUBLIC_KEY')),
+        status varchar(20) not null check (status in ('ACTIVE','INACTIVE','REVOKED','EXPIRED')),
+        credential_id varchar(255),
+        device_info TEXT,
+        factor_data TEXT,
+        public_key TEXT,
+        secret_key varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create index idx_authlog_user_id 
+       on authentication_logs (user_id)
+Hibernate: 
+    create index idx_authlog_txn_id 
+       on authentication_logs (transaction_id)
+Hibernate: 
+    create index idx_authlog_created_at 
+       on authentication_logs (created_at)
+Hibernate: 
+    create index idx_authlog_success 
+       on authentication_logs (success)
+Hibernate: 
+    create index idx_authsig_org_id 
+       on authorised_signatories (organisation_id)
+Hibernate: 
+    create index idx_authsig_status 
+       on authorised_signatories (status)
+Hibernate: 
+    create index idx_bankkyc_account 
+       on bank_kyc (account_number)
+Hibernate: 
+    create index idx_bankkyc_ifsc 
+       on bank_kyc (bank_ifsc_code)
+Hibernate: 
+    create index idx_bankkyc_status 
+       on bank_kyc (status)
+Hibernate: 
+    create index idx_doc_txn_id 
+       on document_signatures (transaction_id)
+Hibernate: 
+    create index idx_doc_id 
+       on document_signatures (document_id)
+Hibernate: 
+    create index idx_email 
+       on ekyc_users (email)
+Hibernate: 
+    create index idx_status 
+       on ekyc_users (status)
+Hibernate: 
+    create index idx_ekyc_type 
+       on ekyc_users (ekyc_type)
+Hibernate: 
+    create index idx_asp_id 
+       on esign_transactions (asp_id)
+Hibernate: 
+    create index idx_signer_id 
+       on esign_transactions (signer_id)
+Hibernate: 
+    create index idx_status 
+       on esign_transactions (status)
+2026-08-24 11:55:54.615 [main] WARN  o.h.t.s.i.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Error executing DDL "
+    create index idx_status 
+       on esign_transactions (status)" via JDBC [Index "IDX_STATUS" already exists;]
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    create index idx_status 
+       on esign_transactions (status)" via JDBC [Index "IDX_STATUS" already exists;]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94)
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233)
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createTableConstraints(SchemaCreatorImpl.java:383)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createSequencesTablesConstraints(SchemaCreatorImpl.java:351)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:239)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:172)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:142)
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:118)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:256)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:145)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:142)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:315)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:450)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1507)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1833)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1234)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:952)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
+	at in.gov.cca.esign.EsignApplication.main(EsignApplication.java:20)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:91)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:53)
+	at org.springframework.boot.loader.launch.JarLauncher.main(JarLauncher.java:58)
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: Index "IDX_STATUS" already exists; SQL statement:
+
+    create index idx_status 
+       on esign_transactions (s [42111-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.ddl.CreateIndex.update(CreateIndex.java:76)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:169)
+	at org.h2.command.Command.executeUpdate(Command.java:256)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80)
+	... 45 common frames omitted
+Hibernate: 
+    create index idx_created_at 
+       on esign_transactions (created_at)
+Hibernate: 
+    create index idx_org_status 
+       on organisations (status)
+Hibernate: 
+    create index idx_auth_user_id 
+       on user_authentication_factors (user_id)
+Hibernate: 
+    create index idx_auth_type 
+       on user_authentication_factors (factor_type)
+Hibernate: 
+    create index idx_auth_status 
+       on user_authentication_factors (status)
+Hibernate: 
+    alter table if exists authentication_logs 
+       add constraint FKek3fxjp22126lwsxpn1il933s 
+       foreign key (user_id) 
+       references ekyc_users
+Hibernate: 
+    alter table if exists authorised_signatories 
+       add constraint FKimm9xlt4rc2hn44m1lr1fldca 
+       foreign key (organisation_id) 
+       references organisations
+Hibernate: 
+    alter table if exists document_signatures 
+       add constraint FK36ieosfhf6evss4iq967m1038 
+       foreign key (transaction_id) 
+       references esign_transactions
+Hibernate: 
+    alter table if exists user_authentication_factors 
+       add constraint FKo9ay9go7ewhw6gbhfw4vulhky 
+       foreign key (user_id) 
+       references ekyc_users
+2026-08-24 11:55:54.678 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-24 11:55:55.696 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-08-24 11:56:00.642 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-08-24 11:56:00.769 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: cf5981a5-6000-4812-85ab-53b61003206c
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-08-24 11:56:01.282 [main] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-08-24 11:56:02.391 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoint(s) beneath base path '/actuator'
+2026-08-24 11:56:02.613 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@e31d9c2, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@10e5c13c, org.springframework.security.web.context.SecurityContextHolderFilter@109d3527, org.springframework.security.web.header.HeaderWriterFilter@fffdd40, org.springframework.web.filter.CorsFilter@56584f06, org.springframework.security.web.authentication.logout.LogoutFilter@605049be, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2fb0f432, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6e00a1ba, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@796ed904, org.springframework.security.web.session.SessionManagementFilter@1b404a21, org.springframework.security.web.access.ExceptionTranslationFilter@6ca404b, org.springframework.security.web.access.intercept.AuthorizationFilter@7908e69e]
+2026-08-24 11:56:04.167 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-08-24 11:56:04.198 [main] INFO  in.gov.cca.esign.EsignApplication - Started EsignApplication in 23.393 seconds (process running for 24.042)
+2026-08-24 11:56:04.569 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-24 11:56:04.573 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-08-24 11:56:04.581 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 8 ms
+2026-08-24 11:56:04.646 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-24 11:56:04.691 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 11:56:04.707 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-24 11:58:14.574 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-24 11:58:14.574 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 11:58:14.574 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-24 11:58:28.712 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /
+2026-08-24 11:58:28.712 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 11:58:28.712 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /
+2026-08-24 11:58:28.743 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /index.html
+2026-08-24 11:58:28.743 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /index.html
+2026-08-24 11:58:28.789 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign.html
+2026-08-24 11:58:28.789 [http-nio-8080-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 11:58:28.803 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign.html
+2026-08-24 11:58:28.844 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /ekyc.html
+2026-08-24 11:58:28.844 [http-nio-8080-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 11:58:28.846 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /ekyc.html
+2026-08-24 11:58:28.868 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/app.css
+2026-08-24 11:58:28.884 [http-nio-8080-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 11:58:28.884 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/app.css
+2026-08-24 11:58:28.915 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /js/esign.js
+2026-08-24 11:58:28.921 [http-nio-8080-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 11:58:28.921 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /js/esign.js
+2026-08-24 11:58:28.952 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/dev/users
+2026-08-24 11:58:28.952 [http-nio-8080-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 11:58:28.964 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/dev/users
+2026-08-24 11:58:29.058 [http-nio-8080-exec-10] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Unexpected character ('u' (code 117)): was expecting double-quote to start field name]
+2026-08-24 11:58:29.058 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing POST /error
+2026-08-24 11:58:29.058 [http-nio-8080-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 11:58:29.078 [http-nio-8080-exec-10] DEBUG o.s.s.w.a.Http403ForbiddenEntryPoint - Pre-authenticated entry point called. Rejecting access
+2026-08-24 11:58:29.100 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/dev/users
+2026-08-24 11:58:29.100 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 11:58:29.100 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/dev/users
+2026-08-24 11:58:29.105 [http-nio-8080-exec-1] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Unexpected character ('u' (code 117)): was expecting double-quote to start field name]
+2026-08-24 11:58:29.105 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing POST /error
+2026-08-24 11:58:29.105 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 11:58:29.105 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.Http403ForbiddenEntryPoint - Pre-authenticated entry point called. Rejecting access
+2026-08-24 11:58:29.153 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/dev/pin-hash?username=testsigner&pin=123456&txn=EKY_RUN1
+2026-08-24 11:58:29.153 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 11:58:29.153 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/dev/pin-hash?username=testsigner&pin=123456&txn=EKY_RUN1
+Hibernate: 
+    select
+        eu1_0.id,
+        eu1_0.aadhaar_last4,
+        eu1_0.activated_at,
+        eu1_0.address,
+        eu1_0.ca_officer,
+        eu1_0.country,
+        eu1_0.created_at,
+        eu1_0.deactivated_at,
+        eu1_0.dob,
+        eu1_0.ekyc_type,
+        eu1_0.email,
+        eu1_0.failed_attempts,
+        eu1_0.gender,
+        eu1_0.last_login_at,
+        eu1_0.locked_until,
+        eu1_0.mobile,
+        eu1_0.name,
+        eu1_0.pan,
+        eu1_0.photograph,
+        eu1_0.pin_hash,
+        eu1_0.pin_salt,
+        eu1_0.postal_code,
+        eu1_0.state_province,
+        eu1_0.status,
+        eu1_0.updated_at,
+        eu1_0.username 
+    from
+        ekyc_users eu1_0 
+    where
+        eu1_0.username=?
+2026-08-24 11:58:29.595 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing POST /ekyc/auth
+2026-08-24 11:58:29.595 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 11:58:29.595 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured POST /ekyc/auth
+2026-08-24 11:58:29.608 [http-nio-8080-exec-4] INFO  i.g.c.e.controller.EKycController - Received eKYC auth request from IP: 0:0:0:0:0:0:0:1
+2026-08-24 11:58:29.921 [http-nio-8080-exec-4] INFO  i.g.c.e.service.impl.EKycServiceImpl - Authenticating user: testsigner txn: EKY_RUN1
+Hibernate: 
+    select
+        eu1_0.id,
+        eu1_0.aadhaar_last4,
+        eu1_0.activated_at,
+        eu1_0.address,
+        eu1_0.ca_officer,
+        eu1_0.country,
+        eu1_0.created_at,
+        eu1_0.deactivated_at,
+        eu1_0.dob,
+        eu1_0.ekyc_type,
+        eu1_0.email,
+        eu1_0.failed_attempts,
+        eu1_0.gender,
+        eu1_0.last_login_at,
+        eu1_0.locked_until,
+        eu1_0.mobile,
+        eu1_0.name,
+        eu1_0.pan,
+        eu1_0.photograph,
+        eu1_0.pin_hash,
+        eu1_0.pin_salt,
+        eu1_0.postal_code,
+        eu1_0.state_province,
+        eu1_0.status,
+        eu1_0.updated_at,
+        eu1_0.username 
+    from
+        ekyc_users eu1_0 
+    where
+        eu1_0.username=?
+2026-08-24 11:58:43.810 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/dev/users
+2026-08-24 11:58:43.810 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 11:58:43.810 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/dev/users
+Hibernate: 
+    select
+        eu1_0.id,
+        eu1_0.aadhaar_last4,
+        eu1_0.activated_at,
+        eu1_0.address,
+        eu1_0.ca_officer,
+        eu1_0.country,
+        eu1_0.created_at,
+        eu1_0.deactivated_at,
+        eu1_0.dob,
+        eu1_0.ekyc_type,
+        eu1_0.email,
+        eu1_0.failed_attempts,
+        eu1_0.gender,
+        eu1_0.last_login_at,
+        eu1_0.locked_until,
+        eu1_0.mobile,
+        eu1_0.name,
+        eu1_0.pan,
+        eu1_0.photograph,
+        eu1_0.pin_hash,
+        eu1_0.pin_salt,
+        eu1_0.postal_code,
+        eu1_0.state_province,
+        eu1_0.status,
+        eu1_0.updated_at,
+        eu1_0.username 
+    from
+        ekyc_users eu1_0 
+    where
+        eu1_0.username=?
+Hibernate: 
+    select
+        eu1_0.id,
+        eu1_0.aadhaar_last4,
+        eu1_0.activated_at,
+        eu1_0.address,
+        eu1_0.ca_officer,
+        eu1_0.country,
+        eu1_0.created_at,
+        eu1_0.deactivated_at,
+        eu1_0.dob,
+        eu1_0.ekyc_type,
+        eu1_0.email,
+        eu1_0.failed_attempts,
+        eu1_0.gender,
+        eu1_0.last_login_at,
+        eu1_0.locked_until,
+        eu1_0.mobile,
+        eu1_0.name,
+        eu1_0.pan,
+        eu1_0.photograph,
+        eu1_0.pin_hash,
+        eu1_0.pin_salt,
+        eu1_0.postal_code,
+        eu1_0.state_province,
+        eu1_0.status,
+        eu1_0.updated_at,
+        eu1_0.username 
+    from
+        ekyc_users eu1_0 
+    where
+        eu1_0.username=?
+2026-08-24 11:58:44.098 [http-nio-8080-exec-3] INFO  i.g.c.e.service.impl.EKycServiceImpl - Created eKYC account: testsigner (type: OFFLINE_AADHAAR)
+Hibernate: 
+    insert 
+    into
+        ekyc_users
+        (aadhaar_last4, activated_at, address, ca_officer, country, created_at, deactivated_at, dob, ekyc_type, email, failed_attempts, gender, last_login_at, locked_until, mobile, name, pan, photograph, pin_hash, pin_salt, postal_code, state_province, status, updated_at, username, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        user_authentication_factors
+        (counter, created_at, credential_id, device_info, expires_at, factor_data, factor_type, last_used_at, public_key, registered_at, secret_key, status, updated_at, user_id, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        user_authentication_factors
+        (counter, created_at, credential_id, device_info, expires_at, factor_data, factor_type, last_used_at, public_key, registered_at, secret_key, status, updated_at, user_id, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-08-24 11:58:44.225 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/dev/users
+2026-08-24 11:58:44.225 [http-nio-8080-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 11:58:44.225 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/dev/users
+Hibernate: 
+    select
+        eu1_0.id,
+        eu1_0.aadhaar_last4,
+        eu1_0.activated_at,
+        eu1_0.address,
+        eu1_0.ca_officer,
+        eu1_0.country,
+        eu1_0.created_at,
+        eu1_0.deactivated_at,
+        eu1_0.dob,
+        eu1_0.ekyc_type,
+        eu1_0.email,
+        eu1_0.failed_attempts,
+        eu1_0.gender,
+        eu1_0.last_login_at,
+        eu1_0.locked_until,
+        eu1_0.mobile,
+        eu1_0.name,
+        eu1_0.pan,
+        eu1_0.photograph,
+        eu1_0.pin_hash,
+        eu1_0.pin_salt,
+        eu1_0.postal_code,
+        eu1_0.state_province,
+        eu1_0.status,
+        eu1_0.updated_at,
+        eu1_0.username 
+    from
+        ekyc_users eu1_0 
+    where
+        eu1_0.username=?
+Hibernate: 
+    select
+        af1_0.user_id,
+        af1_0.id,
+        af1_0.counter,
+        af1_0.created_at,
+        af1_0.credential_id,
+        af1_0.device_info,
+        af1_0.expires_at,
+        af1_0.factor_data,
+        af1_0.factor_type,
+        af1_0.last_used_at,
+        af1_0.public_key,
+        af1_0.registered_at,
+        af1_0.secret_key,
+        af1_0.status,
+        af1_0.updated_at 
+    from
+        user_authentication_factors af1_0 
+    where
+        af1_0.user_id=?
+Hibernate: 
+    select
+        al1_0.user_id,
+        al1_0.id,
+        al1_0.auth_mode,
+        al1_0.created_at,
+        al1_0.error_code,
+        al1_0.error_message,
+        al1_0.factor_type,
+        al1_0.ip_address,
+        al1_0.success,
+        al1_0.transaction_id,
+        al1_0.user_agent 
+    from
+        authentication_logs al1_0 
+    where
+        al1_0.user_id=?
+Hibernate: 
+    delete 
+    from
+        user_authentication_factors 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        user_authentication_factors 
+    where
+        id=?
+Hibernate: 
+    delete 
+    from
+        ekyc_users 
+    where
+        id=?
+Hibernate: 
+    select
+        eu1_0.id,
+        eu1_0.aadhaar_last4,
+        eu1_0.activated_at,
+        eu1_0.address,
+        eu1_0.ca_officer,
+        eu1_0.country,
+        eu1_0.created_at,
+        eu1_0.deactivated_at,
+        eu1_0.dob,
+        eu1_0.ekyc_type,
+        eu1_0.email,
+        eu1_0.failed_attempts,
+        eu1_0.gender,
+        eu1_0.last_login_at,
+        eu1_0.locked_until,
+        eu1_0.mobile,
+        eu1_0.name,
+        eu1_0.pan,
+        eu1_0.photograph,
+        eu1_0.pin_hash,
+        eu1_0.pin_salt,
+        eu1_0.postal_code,
+        eu1_0.state_province,
+        eu1_0.status,
+        eu1_0.updated_at,
+        eu1_0.username 
+    from
+        ekyc_users eu1_0 
+    where
+        eu1_0.username=?
+2026-08-24 11:58:44.418 [http-nio-8080-exec-6] INFO  i.g.c.e.service.impl.EKycServiceImpl - Created eKYC account: testsigner (type: OFFLINE_AADHAAR)
+Hibernate: 
+    insert 
+    into
+        ekyc_users
+        (aadhaar_last4, activated_at, address, ca_officer, country, created_at, deactivated_at, dob, ekyc_type, email, failed_attempts, gender, last_login_at, locked_until, mobile, name, pan, photograph, pin_hash, pin_salt, postal_code, state_province, status, updated_at, username, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        user_authentication_factors
+        (counter, created_at, credential_id, device_info, expires_at, factor_data, factor_type, last_used_at, public_key, registered_at, secret_key, status, updated_at, user_id, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        user_authentication_factors
+        (counter, created_at, credential_id, device_info, expires_at, factor_data, factor_type, last_used_at, public_key, registered_at, secret_key, status, updated_at, user_id, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-08-24 11:58:55.805 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/dev/pin-hash?username=testsigner&pin=123456&txn=EKY_RUN1
+2026-08-24 11:58:55.805 [http-nio-8080-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 11:58:55.805 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/dev/pin-hash?username=testsigner&pin=123456&txn=EKY_RUN1
+Hibernate: 
+    select
+        eu1_0.id,
+        eu1_0.aadhaar_last4,
+        eu1_0.activated_at,
+        eu1_0.address,
+        eu1_0.ca_officer,
+        eu1_0.country,
+        eu1_0.created_at,
+        eu1_0.deactivated_at,
+        eu1_0.dob,
+        eu1_0.ekyc_type,
+        eu1_0.email,
+        eu1_0.failed_attempts,
+        eu1_0.gender,
+        eu1_0.last_login_at,
+        eu1_0.locked_until,
+        eu1_0.mobile,
+        eu1_0.name,
+        eu1_0.pan,
+        eu1_0.photograph,
+        eu1_0.pin_hash,
+        eu1_0.pin_salt,
+        eu1_0.postal_code,
+        eu1_0.state_province,
+        eu1_0.status,
+        eu1_0.updated_at,
+        eu1_0.username 
+    from
+        ekyc_users eu1_0 
+    where
+        eu1_0.username=?
+2026-08-24 11:58:56.074 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing POST /ekyc/auth
+2026-08-24 11:58:56.074 [http-nio-8080-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 11:58:56.074 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured POST /ekyc/auth
+2026-08-24 11:58:56.090 [http-nio-8080-exec-8] INFO  i.g.c.e.controller.EKycController - Received eKYC auth request from IP: 0:0:0:0:0:0:0:1
+2026-08-24 11:58:56.090 [http-nio-8080-exec-8] INFO  i.g.c.e.service.impl.EKycServiceImpl - Authenticating user: testsigner txn: EKY_RUN1
+Hibernate: 
+    select
+        eu1_0.id,
+        eu1_0.aadhaar_last4,
+        eu1_0.activated_at,
+        eu1_0.address,
+        eu1_0.ca_officer,
+        eu1_0.country,
+        eu1_0.created_at,
+        eu1_0.deactivated_at,
+        eu1_0.dob,
+        eu1_0.ekyc_type,
+        eu1_0.email,
+        eu1_0.failed_attempts,
+        eu1_0.gender,
+        eu1_0.last_login_at,
+        eu1_0.locked_until,
+        eu1_0.mobile,
+        eu1_0.name,
+        eu1_0.pan,
+        eu1_0.photograph,
+        eu1_0.pin_hash,
+        eu1_0.pin_salt,
+        eu1_0.postal_code,
+        eu1_0.state_province,
+        eu1_0.status,
+        eu1_0.updated_at,
+        eu1_0.username 
+    from
+        ekyc_users eu1_0 
+    where
+        eu1_0.username=?
+2026-08-24 11:58:56.138 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/dev/send-otp?username=testsigner&txn=EKY_RUN1
+2026-08-24 11:58:56.138 [http-nio-8080-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 11:58:56.153 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/dev/send-otp?username=testsigner&txn=EKY_RUN1
+Hibernate: 
+    select
+        eu1_0.id,
+        eu1_0.aadhaar_last4,
+        eu1_0.activated_at,
+        eu1_0.address,
+        eu1_0.ca_officer,
+        eu1_0.country,
+        eu1_0.created_at,
+        eu1_0.deactivated_at,
+        eu1_0.dob,
+        eu1_0.ekyc_type,
+        eu1_0.email,
+        eu1_0.failed_attempts,
+        eu1_0.gender,
+        eu1_0.last_login_at,
+        eu1_0.locked_until,
+        eu1_0.mobile,
+        eu1_0.name,
+        eu1_0.pan,
+        eu1_0.photograph,
+        eu1_0.pin_hash,
+        eu1_0.pin_salt,
+        eu1_0.postal_code,
+        eu1_0.state_province,
+        eu1_0.status,
+        eu1_0.updated_at,
+        eu1_0.username 
+    from
+        ekyc_users eu1_0 
+    where
+        eu1_0.username=?
+2026-08-24 11:58:56.156 [http-nio-8080-exec-9] INFO  i.g.c.e.service.impl.OtpServiceImpl - SMS OTP dispatched for user: testsigner txn: EKY_RUN1 (masked: 4****)
+2026-08-24 11:58:56.156 [http-nio-8080-exec-9] WARN  i.g.c.e.controller.DevTestController - [DEV] OTP exposed over unsecured dev endpoint for user testsigner
+2026-08-24 11:58:56.201 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing POST /ekyc/auth/second-factor
+2026-08-24 11:58:56.201 [http-nio-8080-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 11:58:56.207 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured POST /ekyc/auth/second-factor
+2026-08-24 11:58:56.209 [http-nio-8080-exec-10] INFO  i.g.c.e.controller.EKycController - Received eKYC second factor auth request
+2026-08-24 11:58:56.221 [http-nio-8080-exec-10] INFO  i.g.c.e.service.impl.EKycServiceImpl - Authenticating second factor for txn: EKY_RUN1
+Hibernate: 
+    select
+        eu1_0.id,
+        eu1_0.aadhaar_last4,
+        eu1_0.activated_at,
+        eu1_0.address,
+        eu1_0.ca_officer,
+        eu1_0.country,
+        eu1_0.created_at,
+        eu1_0.deactivated_at,
+        eu1_0.dob,
+        eu1_0.ekyc_type,
+        eu1_0.email,
+        eu1_0.failed_attempts,
+        eu1_0.gender,
+        eu1_0.last_login_at,
+        eu1_0.locked_until,
+        eu1_0.mobile,
+        eu1_0.name,
+        eu1_0.pan,
+        eu1_0.photograph,
+        eu1_0.pin_hash,
+        eu1_0.pin_salt,
+        eu1_0.postal_code,
+        eu1_0.state_province,
+        eu1_0.status,
+        eu1_0.updated_at,
+        eu1_0.username 
+    from
+        ekyc_users eu1_0 
+    where
+        eu1_0.username=?
+Hibernate: 
+    select
+        uaf1_0.id,
+        uaf1_0.counter,
+        uaf1_0.created_at,
+        uaf1_0.credential_id,
+        uaf1_0.device_info,
+        uaf1_0.expires_at,
+        uaf1_0.factor_data,
+        uaf1_0.factor_type,
+        uaf1_0.last_used_at,
+        uaf1_0.public_key,
+        uaf1_0.registered_at,
+        uaf1_0.secret_key,
+        uaf1_0.status,
+        uaf1_0.updated_at,
+        uaf1_0.user_id 
+    from
+        user_authentication_factors uaf1_0 
+    where
+        uaf1_0.user_id=? 
+        and uaf1_0.factor_type=?
+Hibernate: 
+    insert 
+    into
+        authentication_logs
+        (auth_mode, created_at, error_code, error_message, factor_type, ip_address, success, transaction_id, user_id, user_agent, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    update
+        ekyc_users 
+    set
+        aadhaar_last4=?,
+        activated_at=?,
+        address=?,
+        ca_officer=?,
+        country=?,
+        deactivated_at=?,
+        dob=?,
+        ekyc_type=?,
+        email=?,
+        failed_attempts=?,
+        gender=?,
+        last_login_at=?,
+        locked_until=?,
+        mobile=?,
+        name=?,
+        pan=?,
+        photograph=?,
+        pin_hash=?,
+        pin_salt=?,
+        postal_code=?,
+        state_province=?,
+        status=?,
+        updated_at=?,
+        username=? 
+    where
+        id=?
+Hibernate: 
+    update
+        user_authentication_factors 
+    set
+        counter=?,
+        credential_id=?,
+        device_info=?,
+        expires_at=?,
+        factor_data=?,
+        factor_type=?,
+        last_used_at=?,
+        public_key=?,
+        registered_at=?,
+        secret_key=?,
+        status=?,
+        updated_at=?,
+        user_id=? 
+    where
+        id=?
+2026-08-24 11:59:23.749 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/request
+2026-08-24 11:59:23.749 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 11:59:23.749 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/request
+2026-08-24 11:59:23.761 [http-nio-8080-exec-1] INFO  i.g.c.e.controller.EsignController - Received eSign request from IP: 0:0:0:0:0:0:0:1
+2026-08-24 11:59:23.793 [http-nio-8080-exec-1] INFO  i.g.c.e.s.impl.EsignServiceImpl - Processing eSign request txn: ESN_RUN1 asp: ASP001
+Hibernate: 
+    select
+        et1_0.id,
+        et1_0.asp_id,
+        et1_0.completed_at,
+        et1_0.created_at,
+        et1_0.error_code,
+        et1_0.error_message,
+        et1_0.esp_signature,
+        et1_0.max_wait_period,
+        et1_0.redirect_url,
+        et1_0.request_xml,
+        et1_0.response_code,
+        et1_0.response_url,
+        et1_0.response_xml,
+        et1_0.signer_id,
+        et1_0.signing_algorithm,
+        et1_0.status,
+        et1_0.timestamp,
+        et1_0.transaction_id,
+        et1_0.updated_at,
+        et1_0.user_certificate,
+        et1_0.version 
+    from
+        esign_transactions et1_0 
+    where
+        et1_0.transaction_id=?
+Hibernate: 
+    insert 
+    into
+        esign_transactions
+        (asp_id, completed_at, created_at, error_code, error_message, esp_signature, max_wait_period, redirect_url, request_xml, response_code, response_url, response_xml, signer_id, signing_algorithm, status, timestamp, transaction_id, updated_at, user_certificate, version, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        document_signatures
+        (doc_info, doc_url, document_hash, document_id, error_code, hash_algorithm, response_sig_type, signature_value, signed_at, transaction_id, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        document_signatures
+        (doc_info, doc_url, document_hash, document_id, error_code, hash_algorithm, response_sig_type, signature_value, signed_at, transaction_id, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2026-08-24 11:59:23.856 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/status
+2026-08-24 11:59:23.856 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 11:59:23.856 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/status
+2026-08-24 11:59:23.856 [http-nio-8080-exec-2] INFO  i.g.c.e.controller.EsignController - Received eSign status check from IP: 0:0:0:0:0:0:0:1
+2026-08-24 11:59:23.872 [http-nio-8080-exec-2] INFO  i.g.c.e.s.impl.EsignServiceImpl - Checking signing status txn: ESN_RUN1
+Hibernate: 
+    select
+        et1_0.id,
+        et1_0.asp_id,
+        et1_0.completed_at,
+        et1_0.created_at,
+        et1_0.error_code,
+        et1_0.error_message,
+        et1_0.esp_signature,
+        et1_0.max_wait_period,
+        et1_0.redirect_url,
+        et1_0.request_xml,
+        et1_0.response_code,
+        et1_0.response_url,
+        et1_0.response_xml,
+        et1_0.signer_id,
+        et1_0.signing_algorithm,
+        et1_0.status,
+        et1_0.timestamp,
+        et1_0.transaction_id,
+        et1_0.updated_at,
+        et1_0.user_certificate,
+        et1_0.version 
+    from
+        esign_transactions et1_0 
+    where
+        et1_0.transaction_id=?
+2026-08-24 11:59:23.904 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/transaction/ESN_RUN1
+2026-08-24 11:59:23.904 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 11:59:23.904 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/transaction/ESN_RUN1
+Hibernate: 
+    select
+        et1_0.id,
+        et1_0.asp_id,
+        et1_0.completed_at,
+        et1_0.created_at,
+        et1_0.error_code,
+        et1_0.error_message,
+        et1_0.esp_signature,
+        et1_0.max_wait_period,
+        et1_0.redirect_url,
+        et1_0.request_xml,
+        et1_0.response_code,
+        et1_0.response_url,
+        et1_0.response_xml,
+        et1_0.signer_id,
+        et1_0.signing_algorithm,
+        et1_0.status,
+        et1_0.timestamp,
+        et1_0.transaction_id,
+        et1_0.updated_at,
+        et1_0.user_certificate,
+        et1_0.version 
+    from
+        esign_transactions et1_0 
+    where
+        et1_0.transaction_id=?
+2026-08-24 11:59:23.983 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/auth/callback?txnref=RVNOX1JVTjF8MQ==
+2026-08-24 11:59:23.983 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 11:59:23.983 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/auth/callback?txnref=RVNOX1JVTjF8MQ==
+2026-08-24 11:59:23.999 [http-nio-8080-exec-3] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content-Type is not supported]
+2026-08-24 11:59:23.999 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing POST /error?txnref=RVNOX1JVTjF8MQ==
+2026-08-24 11:59:23.999 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 11:59:23.999 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.Http403ForbiddenEntryPoint - Pre-authenticated entry point called. Rejecting access
+2026-08-24 11:59:34.305 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/auth/callback?txnref=RVNOX1JVTjF8MQ==
+2026-08-24 11:59:34.307 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 11:59:34.308 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/auth/callback?txnref=RVNOX1JVTjF8MQ==
+2026-08-24 11:59:34.309 [http-nio-8080-exec-5] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content-Type is not supported]
+2026-08-24 11:59:34.311 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing POST /error?txnref=RVNOX1JVTjF8MQ==
+2026-08-24 11:59:34.313 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 11:59:34.313 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.Http403ForbiddenEntryPoint - Pre-authenticated entry point called. Rejecting access
+2026-08-24 12:00:07.791 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/auth/callback
+2026-08-24 12:00:07.793 [http-nio-8080-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:00:07.794 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/auth/callback
+2026-08-24 12:00:07.796 [http-nio-8080-exec-6] INFO  i.g.c.e.controller.EsignController - Received auth callback with txnref: RVNOX1JVTjF8MQ==
+2026-08-24 12:00:07.832 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/auth/callback?txnref=RVNOX1JVTjF8MQ==
+2026-08-24 12:00:07.833 [http-nio-8080-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:00:07.835 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/auth/callback?txnref=RVNOX1JVTjF8MQ==
+2026-08-24 12:00:07.836 [http-nio-8080-exec-7] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content-Type is not supported]
+2026-08-24 12:00:07.837 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing POST /error?txnref=RVNOX1JVTjF8MQ==
+2026-08-24 12:00:07.839 [http-nio-8080-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:00:07.839 [http-nio-8080-exec-7] DEBUG o.s.s.w.a.Http403ForbiddenEntryPoint - Pre-authenticated entry point called. Rejecting access
+2026-08-24 12:00:07.867 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/request
+2026-08-24 12:00:07.868 [http-nio-8080-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:00:07.869 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/request
+2026-08-24 12:00:07.871 [http-nio-8080-exec-8] INFO  i.g.c.e.controller.EsignController - Received eSign request from IP: 0:0:0:0:0:0:0:1
+2026-08-24 12:00:07.873 [http-nio-8080-exec-8] INFO  i.g.c.e.s.impl.EsignServiceImpl - Processing eSign request txn: ESN_RUN1 asp: ASP001
+Hibernate: 
+    select
+        et1_0.id,
+        et1_0.asp_id,
+        et1_0.completed_at,
+        et1_0.created_at,
+        et1_0.error_code,
+        et1_0.error_message,
+        et1_0.esp_signature,
+        et1_0.max_wait_period,
+        et1_0.redirect_url,
+        et1_0.request_xml,
+        et1_0.response_code,
+        et1_0.response_url,
+        et1_0.response_xml,
+        et1_0.signer_id,
+        et1_0.signing_algorithm,
+        et1_0.status,
+        et1_0.timestamp,
+        et1_0.transaction_id,
+        et1_0.updated_at,
+        et1_0.user_certificate,
+        et1_0.version 
+    from
+        esign_transactions et1_0 
+    where
+        et1_0.transaction_id=?
+2026-08-24 12:00:07.878 [http-nio-8080-exec-8] WARN  i.g.c.e.s.impl.EsignServiceImpl - Duplicate transaction ID: ESN_RUN1
+2026-08-24 12:00:07.911 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing OPTIONS /esign/auth/callback
+2026-08-24 12:00:07.912 [http-nio-8080-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:00:07.913 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured OPTIONS /esign/auth/callback
+2026-08-24 12:01:18.071 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/auth/callback
+2026-08-24 12:01:18.072 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:01:18.074 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/auth/callback
+2026-08-24 12:01:18.075 [http-nio-8080-exec-1] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content-Type is not supported]
+2026-08-24 12:01:18.077 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing POST /error
+2026-08-24 12:01:18.077 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:01:18.078 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.Http403ForbiddenEntryPoint - Pre-authenticated entry point called. Rejecting access
+2026-08-24 12:01:18.112 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/transaction/ESN_RUN1
+2026-08-24 12:01:18.113 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:01:18.114 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/transaction/ESN_RUN1
+2026-08-24 12:01:18.115 [http-nio-8080-exec-4] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' is not supported]
+2026-08-24 12:01:18.116 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing POST /error
+2026-08-24 12:01:18.117 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:01:18.118 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.Http403ForbiddenEntryPoint - Pre-authenticated entry point called. Rejecting access
+2026-08-24 12:01:18.151 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing PUT /esign/auth/callback
+2026-08-24 12:01:18.152 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:01:18.153 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured PUT /esign/auth/callback
+2026-08-24 12:01:18.154 [http-nio-8080-exec-5] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'PUT' is not supported]
+2026-08-24 12:01:18.156 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing PUT /error
+2026-08-24 12:01:18.156 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:01:18.157 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.Http403ForbiddenEntryPoint - Pre-authenticated entry point called. Rejecting access
+2026-08-24 12:01:18.352 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/auth/callback?txnref=RVNOX1JVTjF8MQ==
+2026-08-24 12:01:18.354 [http-nio-8080-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:01:18.355 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/auth/callback?txnref=RVNOX1JVTjF8MQ==
+2026-08-24 12:01:18.357 [http-nio-8080-exec-6] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content-Type is not supported]
+2026-08-24 12:01:18.359 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing POST /error?txnref=RVNOX1JVTjF8MQ==
+2026-08-24 12:01:18.360 [http-nio-8080-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:01:18.360 [http-nio-8080-exec-6] DEBUG o.s.s.w.a.Http403ForbiddenEntryPoint - Pre-authenticated entry point called. Rejecting access
+2026-08-24 12:01:53.807 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/auth/callback?txnref=RVNOX1JVTjF8MQ==
+2026-08-24 12:01:53.818 [http-nio-8080-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:01:53.820 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/auth/callback?txnref=RVNOX1JVTjF8MQ==
+2026-08-24 12:01:53.821 [http-nio-8080-exec-8] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content-Type is not supported]
+2026-08-24 12:01:53.823 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing POST /error?txnref=RVNOX1JVTjF8MQ==
+2026-08-24 12:01:53.823 [http-nio-8080-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:01:53.824 [http-nio-8080-exec-8] DEBUG o.s.s.w.a.Http403ForbiddenEntryPoint - Pre-authenticated entry point called. Rejecting access
+2026-08-24 12:01:53.861 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/auth/callback
+2026-08-24 12:01:53.863 [http-nio-8080-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:01:53.864 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/auth/callback
+2026-08-24 12:01:53.865 [http-nio-8080-exec-10] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content-Type 'text/plain' is not supported]
+2026-08-24 12:01:53.865 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing POST /error
+2026-08-24 12:01:53.866 [http-nio-8080-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:01:53.867 [http-nio-8080-exec-10] DEBUG o.s.s.w.a.Http403ForbiddenEntryPoint - Pre-authenticated entry point called. Rejecting access
+2026-08-24 12:01:53.894 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/auth/callback?txnref=RVNOX1JVTjF8MQ==
+2026-08-24 12:01:53.896 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:01:53.897 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/auth/callback?txnref=RVNOX1JVTjF8MQ==
+2026-08-24 12:01:53.898 [http-nio-8080-exec-1] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2026-08-24 12:01:53.900 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /error?txnref=RVNOX1JVTjF8MQ==
+2026-08-24 12:01:53.901 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:01:53.902 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.Http403ForbiddenEntryPoint - Pre-authenticated entry point called. Rejecting access
+2026-08-24 12:02:20.791 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /actuator/health
+2026-08-24 12:02:20.794 [http-nio-8080-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:02:20.795 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /actuator/health
+2026-08-24 12:02:20.829 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/transaction/ESN_RUN1
+2026-08-24 12:02:20.833 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:02:20.834 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/transaction/ESN_RUN1
+Hibernate: 
+    select
+        et1_0.id,
+        et1_0.asp_id,
+        et1_0.completed_at,
+        et1_0.created_at,
+        et1_0.error_code,
+        et1_0.error_message,
+        et1_0.esp_signature,
+        et1_0.max_wait_period,
+        et1_0.redirect_url,
+        et1_0.request_xml,
+        et1_0.response_code,
+        et1_0.response_url,
+        et1_0.response_xml,
+        et1_0.signer_id,
+        et1_0.signing_algorithm,
+        et1_0.status,
+        et1_0.timestamp,
+        et1_0.transaction_id,
+        et1_0.updated_at,
+        et1_0.user_certificate,
+        et1_0.version 
+    from
+        esign_transactions et1_0 
+    where
+        et1_0.transaction_id=?
+2026-08-24 12:02:20.880 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing POST /esign/request
+2026-08-24 12:02:20.883 [http-nio-8080-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:02:20.884 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured POST /esign/request
+2026-08-24 12:02:20.886 [http-nio-8080-exec-3] INFO  i.g.c.e.controller.EsignController - Received eSign request from IP: 0:0:0:0:0:0:0:1
+2026-08-24 12:02:20.889 [http-nio-8080-exec-3] INFO  i.g.c.e.s.impl.EsignServiceImpl - Processing eSign request txn: ESN_RUN1 asp: ASP001
+Hibernate: 
+    select
+        et1_0.id,
+        et1_0.asp_id,
+        et1_0.completed_at,
+        et1_0.created_at,
+        et1_0.error_code,
+        et1_0.error_message,
+        et1_0.esp_signature,
+        et1_0.max_wait_period,
+        et1_0.redirect_url,
+        et1_0.request_xml,
+        et1_0.response_code,
+        et1_0.response_url,
+        et1_0.response_xml,
+        et1_0.signer_id,
+        et1_0.signing_algorithm,
+        et1_0.status,
+        et1_0.timestamp,
+        et1_0.transaction_id,
+        et1_0.updated_at,
+        et1_0.user_certificate,
+        et1_0.version 
+    from
+        esign_transactions et1_0 
+    where
+        et1_0.transaction_id=?
+2026-08-24 12:02:20.894 [http-nio-8080-exec-3] WARN  i.g.c.e.s.impl.EsignServiceImpl - Duplicate transaction ID: ESN_RUN1
+2026-08-24 12:02:20.930 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/auth/callback
+2026-08-24 12:02:20.932 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:02:20.933 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/auth/callback
+2026-08-24 12:02:20.934 [http-nio-8080-exec-5] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2026-08-24 12:02:20.938 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /error
+2026-08-24 12:02:20.939 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:02:20.940 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.Http403ForbiddenEntryPoint - Pre-authenticated entry point called. Rejecting access
+2026-08-24 12:02:20.963 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/auth/callback?txnref=RVNOX1JVTjF8MQ==
+2026-08-24 12:02:20.967 [http-nio-8080-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:02:20.968 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/auth/callback?txnref=RVNOX1JVTjF8MQ==
+2026-08-24 12:02:20.971 [http-nio-8080-exec-6] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2026-08-24 12:02:20.972 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /error?txnref=RVNOX1JVTjF8MQ==
+2026-08-24 12:02:20.973 [http-nio-8080-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:02:20.973 [http-nio-8080-exec-6] DEBUG o.s.s.w.a.Http403ForbiddenEntryPoint - Pre-authenticated entry point called. Rejecting access
+2026-08-24 12:02:21.005 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /esign/auth/callback?foo=bar
+2026-08-24 12:02:21.006 [http-nio-8080-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:02:21.008 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /esign/auth/callback?foo=bar
+2026-08-24 12:02:21.009 [http-nio-8080-exec-7] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2026-08-24 12:02:21.012 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /error?foo=bar
+2026-08-24 12:02:21.013 [http-nio-8080-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2026-08-24 12:02:21.014 [http-nio-8080-exec-7] DEBUG o.s.s.w.a.Http403ForbiddenEntryPoint - Pre-authenticated entry point called. Rejecting access
